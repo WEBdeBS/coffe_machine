@@ -28,4 +28,19 @@ describe('Coffe machine', function(){
     const c = Coffee.make('K')
     assert.isNull(c)
   })
+
+  it ('should make a coffee with 1 spoon of sugar',function(){
+    const c = Coffee.make('C:1')
+    assert.isNotNull(c)
+    assert.equal('C', c.type)
+    assert.equal(1, c.sugar)
+  })
+
+  it ('should make a tea with 2 spoons of sugar',function(){
+    const tea = Coffee.make('T:2')
+    assert.isNotNull(tea)
+    assert.equal('T', tea.type)
+    assert.equal(2, tea.sugar)
+  })
+
 })
