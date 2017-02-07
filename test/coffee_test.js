@@ -70,4 +70,10 @@ describe('Coffe machine', function(){
     assert.isNotNull(message)
     assert.equal('0.10$ missing', message.message)
   })
+
+  it ('should make orange with O parameter',function(){
+    const message = Coffee.make('O:0:0.8')
+    assert.isNotNull(message)
+    assert.equal('O', message.type)
+  })
 })
