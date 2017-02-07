@@ -1,13 +1,11 @@
+const THC = ['T', 'H', 'C']
+
+
 module.exports = {
   make: function(order){
-    if (order === 'T') {
-      return {type: 'T'}
+    if (THC.indexOf(order) > -1) {
+      return {type: order}
     }
-    if (order === 'C') {
-      return {type: 'C'}
-    }
-    if (order === 'H') {
-      return {type: 'H'}
-    }
+    return null
   }
 }

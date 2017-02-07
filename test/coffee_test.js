@@ -23,4 +23,9 @@ describe('Coffe machine', function(){
     assert.isNotNull(c)
     assert.equal('H', c.type)
   })
+
+  it ('beverage does not exists, should return null`',function(){
+    const c = Coffee.make('K')
+    assert.isNull(c)
+  })
 })
