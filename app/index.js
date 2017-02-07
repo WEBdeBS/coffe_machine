@@ -12,7 +12,7 @@ module.exports = {
 
     if (sugar){
       beverage.sugar = parseInt(sugar)
-      beverage.stick = true
+      beverage.stick = beverage.sugar > 0
     }
     return beverage
   }
