@@ -9,9 +9,10 @@ module.exports = {
       return null
     }
     beverage.type = beverageType
-    
+
     if (sugar){
       beverage.sugar = parseInt(sugar)
+      beverage.stick = true
     }
     return beverage
   }

@@ -43,4 +43,12 @@ describe('Coffe machine', function(){
     assert.equal(2, tea.sugar)
   })
 
+  it ('should make a tea with 2 spoons of sugar add stick',function(){
+    const tea = Coffee.make('T:2')
+    assert.isNotNull(tea)
+    assert.equal('T', tea.type)
+    assert.equal(2, tea.sugar)
+    assert.equal(true, tea.stick)
+  })
+
 })
