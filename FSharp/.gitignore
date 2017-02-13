@@ -4,4 +4,4 @@ build/
 obj/
 packages/
 .paket/
-
+xunit.html
