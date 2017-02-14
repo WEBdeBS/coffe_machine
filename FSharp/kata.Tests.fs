@@ -43,7 +43,7 @@ let ``It should make Chocolate with no sugar`` () =
 [<Fact>]
 let ``It should make Coffee with two sugar and a stick``() =
   let order = "C:2:0"
-  let drink = order |> make |> extract
+  let drink = make order |> extract
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 2
   drink.Stick |> should be True
