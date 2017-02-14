@@ -25,6 +25,7 @@ let parseBeverage beverage =
   match beverage with
   |"T" -> Tea
   |"H" -> Chocolate
+  |"C" -> Coffee
   |_ -> failwithf "Unknown drink %s" beverage
 
 let parseSugar sugar =
