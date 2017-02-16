@@ -4,11 +4,15 @@ module CoffeMachine.Tests
 open Xunit
 open FsUnit.Xunit
 open CoffeeMachine.Core
+open CoffeeMachine.Maker
+open CoffeeMachine.PriceList
 
 let extract beverage =
   match beverage with
-  | Some b -> b
-  | None -> failwithf "Invalid beverage"
+  | Drink d -> match d with
+                | Some b -> b
+                | None -> failwith "Invalid drink!"
+  | Message m -> failwithf "Invalid mysterious error: %s" m
 
 [<Fact>]
 let ``Green Test``() =
@@ -18,22 +22,19 @@ let ``Green Test``() =
 [<Fact>]
 let ``It should make tea`` () =
 
-  let order = "T:1:0"
-  let beverage = order |> make |> extract  
+  let order = "T:1:0.6"
+  let beverage = order |> make |> extract
 
-  beverage.Beverage 
+  beverage.Beverage
   |> should equal Tea
-  beverage.Sugar 
+  beverage.Sugar
   |> should equal 1
   beverage.Stick
   |> should be True
-  
 
-
-  
 [<Fact>]
 let ``It should make Chocolate with no sugar`` () =
-    let order = "H::"
+    let order = "H::0.6"
     let beverage = order |> make |> extract
 
     beverage.Beverage |> should equal Chocolate
@@ -42,11 +43,21 @@ let ``It should make Chocolate with no sugar`` () =
 
 [<Fact>]
 let ``It should make Coffee with two sugar and a stick``() =
-  let order = "C:2:0"
+  let order = "C:2:0.6"
   let drink = make order |> extract
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 2
   drink.Stick |> should be True
+
+[<Fact>]
+let ``It should not make an unknow drink``() =
+    let order = "A:0:0.6"
+
+    match  make order with
+    | Drink b -> match b with
+                 | None -> ()
+                 |_ -> failwith "Figa!"
+    |_ -> failwith "Cazzo!"
 
 [<Fact>]
 let ``It should display messages on the interface`` () =
@@ -57,5 +68,12 @@ let ``It should display messages on the interface`` () =
   let order = "M:message-content"
   let beverage = makeDisp display order
   testMessage |> should equal "message-content"
-    
 
+[<Fact>]
+let ``It should Not make coffee if not enough money`` () =
+  let order = "C:0:0.2"
+  let mutable testMessage = "Pippo"
+  let display message =
+    testMessage <- message
+  let beverage = makeDisp display order
+  testMessage |> should equal "0.4 Euros missing"

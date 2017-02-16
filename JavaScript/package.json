@@ -12,5 +12,8 @@
   "dependencies": {
     "chai": "3.5.0",
     "mocha": "3.2.0"
+  },
+  "devDependencies": {
+    "atom-ui-reporter": "0.0.1"
   }
 }
