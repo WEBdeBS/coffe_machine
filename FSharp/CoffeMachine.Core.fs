@@ -15,7 +15,7 @@ let showMessage display message =
 let display message =
   printfn "%s" message
 
-let makeDispMaker (maker: string -> Drink) (display: string -> unit) (orderStr: String) =
+let makeDispMaker maker display (orderStr: string) =
   if orderStr.StartsWith("M")
   then showMessage display orderStr
        None
