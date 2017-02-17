@@ -1,5 +1,9 @@
 module CoffeeMachine.PriceList
+open System.Collections.Generic
 
 type BeverageType = Tea | Coffee | Chocolate | InvalidOrder
 
-let priceList = dict["T", 0.4; "C", 0.6; "H", 0.5]
+let prices = dict[Tea, 0.4; Coffee, 0.6; Chocolate, 0.5]
+
+let priceList beverageTYpe =
+  prices.Item beverageTYpe

@@ -40,10 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PriceList.fs" />
-    <None Include="Script.fsx" />
     <Compile Include="DrinkMaker.fs" />
+    <None Include="Script.fsx" />
     <Compile Include="CoffeMachine.fs" />
-    <Compile Include="kata.Tests.fs" />
+    <Compile Include="CoffeeMachine.Tests.fs" />
+    <Compile Include="DrinkMaker.Tests.fs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Choose>

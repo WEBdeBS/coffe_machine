@@ -5,6 +5,7 @@ open CoffeeMachine.Maker
 
 let someThing = "Pippo"
 
+
 let showMessage display message =
   let pattern  = "^M:(.*)$"
   let matches = Regex.Match(message, pattern)
@@ -13,15 +14,18 @@ let showMessage display message =
 let display message =
   printfn "%s" message
 
-
-let makeDisp (display: string -> unit) (orderStr: String) =
+let makeDispMaker (maker: string -> Drink) (display: string -> unit) (orderStr: String) =
   if orderStr.StartsWith("M")
   then showMessage display orderStr
-       None |> Drink
+       None
   else match makeBeverage orderStr with
        | Message m -> display m
-                      None |> Drink
-       | Drink d -> d |> Drink
+                      None
+       | Drink d -> d
+
+let makeDisp display orderStr =
+  makeDispMaker makeBeverage display orderStr
+
 
 let make orderStr =
-  makeDisp display orderStr
+  makeDispMaker makeBeverage display orderStr
