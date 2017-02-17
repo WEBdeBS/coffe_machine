@@ -43,8 +43,7 @@
     <Compile Include="PriceList.fs" />
     <Compile Include="DrinkMaker.Core.fs" />
     <Compile Include="DrinkMaker.fs" />
-    <None Include="Script.fsx" />
-    <Compile Include="CoffeMachine.Core.fs" />
+    <Compile Include="CoffeeMachine.Core.fs" />
     <Compile Include="CoffeeMachine.fs" />
     <Compile Include="CoffeeMachine.Tests.fs" />
     <Compile Include="DrinkMaker.Tests.fs" />
