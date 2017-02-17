@@ -36,7 +36,6 @@ let parseMoney money =
 let parseSpoons sugar =
   sugar > 0
 
-
 let parseOrderString order =
   let pattern = "^(\w*)\:(\d*)\:(\d+\.\d+)$"
   let matches = Regex.Match(order, pattern)
