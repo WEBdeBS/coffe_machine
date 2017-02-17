@@ -4,5 +4,5 @@ build/
 obj/
 packages/
 .paket/
-./xunit.html
+xunit.html
 ./paket.lock
