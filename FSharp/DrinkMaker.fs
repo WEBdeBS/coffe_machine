@@ -44,14 +44,18 @@ let parseOrderString order =
   let money = matches.Groups.[3].Value
   beverageType, sugar, money
 
-let makeBeverageWPriceList priceList orderStr =
+//I don't like parenthesis :O)
+let invertedSubtract x y =
+  y - x
+
+let makeBeverage' priceList orderStr =
   let beverageType, sugar, moneyInserted =
     parseOrderString orderStr
   match parseBeverage beverageType, parseMoney moneyInserted with
   | InvalidOrder,_ -> None |> Drink
-  | (_, m) when  ((beverageType |> parseBeverage |> priceList) - m) >  0.0 -> sprintf "%.1f Euros missing" ((beverageType |> parseBeverage |> priceList) - m) |> Message
+  | (_, m) when  beverageType |> parseBeverage |> priceList |> invertedSubtract  m >  0.0 -> sprintf "%.1f Euros missing" (beverageType |> parseBeverage |> priceList |> invertedSubtract  m) |> Message
   | (_ , _) ->  Some { Beverage= parseBeverage beverageType; Sugar = parseSugar sugar;
                   Stick =  parseSugar >> parseSpoons <| sugar } |> Drink
 
 let makeBeverage orderStr =
-  makeBeverageWPriceList priceList orderStr
+  makeBeverage' priceList orderStr

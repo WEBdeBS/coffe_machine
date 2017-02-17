@@ -20,7 +20,7 @@ let ``It can make coffee with enough money`` () =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.9"
-  let drink = makeBeverageWPriceList getPrice order |> extract
+  let drink = makeBeverage' getPrice order |> extract
 
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
@@ -32,7 +32,7 @@ let ``Cannot make coffee if I don't have enough money`` () =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.4"
-  let drink = makeBeverageWPriceList getPrice order
+  let drink = makeBeverage' getPrice order
 
   let message =
     match drink with
