@@ -1,8 +1,7 @@
 module CoffeeMachine.PriceList
+
 open System.Collections.Generic
-
-
-type BeverageType = Tea | Coffee | Chocolate | InvalidOrder
+open DrinkMaker.Data
 
 let private prices = dict[Tea, 0.4; Coffee, 0.6; Chocolate, 0.5]
 

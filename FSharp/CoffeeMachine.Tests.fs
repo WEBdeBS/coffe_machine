@@ -5,6 +5,7 @@ open FsUnit.Xunit
 open CoffeeMachine.Core
 open CoffeeMachine.Maker
 open CoffeeMachine.PriceList
+open DrinkMaker.Data
 
 let extract  =
   function

@@ -39,7 +39,9 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrinkMaker.Data.fs" />
     <Compile Include="PriceList.fs" />
+    <Compile Include="DrinkMaker.Core.fs" />
     <Compile Include="DrinkMaker.fs" />
     <None Include="Script.fsx" />
     <Compile Include="CoffeMachine.fs" />

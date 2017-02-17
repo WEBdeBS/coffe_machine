@@ -2,6 +2,7 @@ module CoffeeMachine.Core
 open System
 open System.Text.RegularExpressions
 open CoffeeMachine.Maker
+open DrinkMaker.Data
 
 let someThing = "Pippo"
 

@@ -4,6 +4,8 @@ open Xunit
 open FsUnit.Xunit
 open CoffeeMachine.Maker
 open CoffeeMachine.PriceList
+open DrinkMaker.Data
+open DrinkMaker.Core
 
 
 let extract =
