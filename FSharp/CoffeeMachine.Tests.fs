@@ -2,8 +2,9 @@
 module CoffeMachine.Tests
 open Xunit
 open FsUnit.Xunit
+open CoffeeMachine.Main
 open CoffeeMachine.Core
-open CoffeeMachine.Maker
+open DrinkMaker.Data
 open CoffeeMachine.PriceList
 open DrinkMaker.Data
 
@@ -11,11 +12,6 @@ let extract  =
   function
   | Some b -> b
   | None -> failwith "No cup!"
-
-[<Fact>]
-let ``Green Test``() =
-    someThing
-    |> should equal "Pippo"
 
 [<Fact>]
 let ``It should make tea`` () =
@@ -62,7 +58,7 @@ let ``It should display messages on the interface`` () =
   let display message =
     testMessage <- message
   let order = "M:message-content"
-  let beverage = makeDisp display order
+  let beverage = make' display order
   testMessage |> should equal "message-content"
 
 [<Fact>]
@@ -71,5 +67,5 @@ let ``It should Not make coffee if not enough money`` () =
   let mutable testMessage = "Pippo"
   let display message =
     testMessage <- message
-  let beverage = makeDisp display order
+  let beverage = make' display order
   testMessage |> should equal "0.4 Euros missing"
