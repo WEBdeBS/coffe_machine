@@ -3,6 +3,6 @@ build/
 .fake/
 obj/
 packages/
-.paket/
+.paket/*
 xunit.html
-./paket.lock
+paket.lock
