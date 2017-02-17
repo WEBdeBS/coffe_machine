@@ -1,5 +1,5 @@
 
-module CoffeMachine.Tests
+module CoffeeMachine.Tests
 open Xunit
 open FsUnit.Xunit
 open CoffeeMachine.Main

@@ -40,6 +40,7 @@ let makeBeverage' priceList orderStr =
     parseOrderString orderStr
   match parseBeverage beverageType, parseMoney moneyInserted with
   | InvalidOrder,_ -> None |> Drink
-  | (_, m) when  beverageType |> parseBeverage |> priceList |> invertedSubtract  m >  0.0 -> sprintf "%.1f Euros missing" (beverageType |> parseBeverage |> priceList |> invertedSubtract  m) |> Message
+  | (_, m) when  beverageType |> parseBeverage |> priceList |> invertedSubtract  m >  0.0 ->
+        sprintf "%.1f Euros missing" (beverageType |> parseBeverage |> priceList |> invertedSubtract  m) |> Message
   | (_ , _) ->  Some { Beverage= parseBeverage beverageType; Sugar = parseSugar sugar;
                   Stick =  parseSugar >> parseSpoons <| sugar } |> Drink
