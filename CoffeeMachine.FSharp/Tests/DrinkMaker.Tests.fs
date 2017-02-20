@@ -72,8 +72,21 @@ let ``It can make extra hot coffee``() =
   let drink = "Ch:1:0.6"
               |> makeBeverage
               |> extract
-              
+
   drink.Stick |> should be True
   drink.Sugar |> should equal 1
   drink.Beverage |> should equal Coffee
   drink.ExtraHot |> should be True
+
+[<Fact>]
+let ``It cannot make an extra hot Orage Juice...`` () =
+
+  let order = "Oh:1:0.6"
+  let drink = makeBeverage order
+
+  let message =
+    match drink with
+    | Drink d -> failwith "Error, I was expecting a message"
+    | Message m -> m
+
+  message |> should equal "Cannot make an hot Orange Juice"

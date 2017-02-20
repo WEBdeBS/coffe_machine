@@ -45,10 +45,11 @@ let invertedSubtract x y =
 let makeBeverage' priceList orderStr =
   let beverageType, extraHot, sugar, moneyInserted =
     parseOrderString orderStr
-  match parseBeverage beverageType, parseMoney moneyInserted with
-  | InvalidOrder,_ -> None |> Drink
-  | (_, m) when  beverageType |> parseBeverage |> priceList |> invertedSubtract  m >  0.0 ->
+  match parseBeverage beverageType, parseMoney moneyInserted, parseExtraHot extraHot with
+  | InvalidOrder,_,_ -> None |> Drink
+  | _, m, _ when  beverageType |> parseBeverage |> priceList |> invertedSubtract  m >  0.0 ->
         sprintf "%.1f Euros missing" (beverageType |> parseBeverage |> priceList |> invertedSubtract  m) |> Message
-  | (_ , _) ->  Some { Beverage= parseBeverage beverageType; Sugar = parseSugar sugar;
-                  Stick =  parseSugar >> parseSpoons <| sugar; ExtraHot = parseExtraHot extraHot }
+  | b, _, h when b = Orange & h = true -> "Cannot make an hot Orange Juice" |> Message
+  | _ , _, h ->  Some { Beverage= parseBeverage beverageType; Sugar = parseSugar sugar;
+                  Stick =  parseSugar >> parseSpoons <| sugar; ExtraHot = h }
                   |> Drink
