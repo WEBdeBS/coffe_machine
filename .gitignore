@@ -45,3 +45,11 @@ dist/
 seeds/mealrations.json
 server/assets/
 report/
+bin/
+build/
+.fake/
+obj/
+packages/
+FSharp/.paket/*
+FSharp/xunit.html
+FSharp/.paket.lock
