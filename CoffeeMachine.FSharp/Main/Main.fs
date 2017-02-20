@@ -1,5 +1,4 @@
 module Main
-
 open CoffeeMachine.Main
 
 [<EntryPoint>]

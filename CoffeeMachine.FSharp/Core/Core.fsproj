@@ -46,6 +46,7 @@
     <Compile Include="DrinkMaker.fs" />
     <Compile Include="CoffeeMachine.Core.fs" />
     <Compile Include="CoffeeMachine.fs" />
+    <Compile Include="Properties/AssemblyInfo.fs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Choose>

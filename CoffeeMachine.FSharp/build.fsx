@@ -2,6 +2,7 @@
 #r "./packages/FAKE/tools/FakeLib.dll"
 
 open Fake
+open Fake.AssemblyInfoFile
 open Fake.Testing
 
 // Directories
@@ -13,7 +14,10 @@ Target "Clean" (fun _ ->
     CleanDirs [buildDir]
 )
 
+
 Target "Build" (fun _ ->
+    CreateFSharpAssemblyInfo "./Core/Properties/AssemblyInfo.fs"
+      [Attribute.InternalsVisibleTo "Tests" ]
     !! "/**/*.fsproj"
     |> MSBuildDebug buildDir "Build"
     |> Log "AppBuild-Output: "
