@@ -41,6 +41,7 @@ let ``It can make coffee with enough money`` () =
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
   drink.Stick |> should be True
+  drink.ExtraHot |> should be False
 
 [<Fact>]
 let ``Cannot make coffee if I don't have enough money`` () =
@@ -64,3 +65,15 @@ let ``Can Make an Orange juice for .6 euros`` () =
   drink.Stick |> should be True
   drink.Beverage |> should equal Orange
   drink.Sugar |> should equal 1
+  drink.ExtraHot |> should be False
+
+[<Fact>]
+let ``It can make extra hot coffee``() =
+  let drink = "Ch:1:0.6"
+              |> makeBeverage
+              |> extract
+              
+  drink.Stick |> should be True
+  drink.Sugar |> should equal 1
+  drink.Beverage |> should equal Coffee
+  drink.ExtraHot |> should be True
