@@ -8,6 +8,7 @@ let parseBeverage beverage =
   |"T" -> Tea
   |"H" -> Chocolate
   |"C" -> Coffee
+  |"O" -> Orange
   |_ -> InvalidOrder
 
 let parseSugar sugar =

@@ -1,6 +1,6 @@
 module DrinkMaker.Data
 
-type BeverageType = Tea | Coffee | Chocolate | InvalidOrder
+type BeverageType = InvalidOrder | Tea | Coffee | Chocolate |  Orange
 
 type Beverage = {
     Beverage: BeverageType
