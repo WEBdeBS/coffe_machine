@@ -1,4 +1,5 @@
 module DrinkMaker.Core
+
 open DrinkMaker.Data
 open System.Text.RegularExpressions
 open System
@@ -49,7 +50,7 @@ let makeBeverage' priceList orderStr =
   | InvalidOrder,_,_ -> None |> Drink
   | _, m, _ when  beverageType |> parseBeverage |> priceList |> invertedSubtract  m >  0.0 ->
         sprintf "%.1f Euros missing" (beverageType |> parseBeverage |> priceList |> invertedSubtract  m) |> Message
-  | b, _, h when b = Orange & h = true -> "Cannot make an hot Orange Juice" |> Message
+  | b, _, h when b = Orange && h  -> "Cannot make an hot Orange Juice" |> Message
   | _ , _, h ->  Some { Beverage= parseBeverage beverageType; Sugar = parseSugar sugar;
                   Stick =  parseSugar >> parseSpoons <| sugar; ExtraHot = h }
                   |> Drink
