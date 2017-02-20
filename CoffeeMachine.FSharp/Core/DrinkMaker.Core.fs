@@ -1,4 +1,4 @@
-module DrinkMaker.Core
+module internal DrinkMaker.Core
 
 open DrinkMaker.Data
 open System.Text.RegularExpressions
