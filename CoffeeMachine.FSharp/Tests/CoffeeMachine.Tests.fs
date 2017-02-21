@@ -23,7 +23,9 @@ let save (beverage: Beverage) =
 let mutable loaded = false
 let loadAll: BeverageReport list =
   loaded <- true
-  list.Empty
+  [{Beverage = Coffee; Price = 0.6};
+  {Beverage = Chocolate; Price = 0.5};
+  {Beverage = Coffee; Price = 0.6}]
 
 let fakeRepository = save, loadAll
 
@@ -95,7 +97,7 @@ let ``It should display messages on the interface`` () =
 [<Fact>]
 let ``It should Not make coffee if not enough money`` () =
   reset ()
-  
+
   let fakeMaker order =
     order |> should equal "pluto"
     "paperino" |> Message
@@ -110,3 +112,5 @@ let ``It should Not make coffee if not enough money`` () =
   displayed |> should be True
   messageDisplayed |> should equal "paperino"
   saved |> should be False
+[<Fact>]
+let ``I should be able to print a receipt``() =
