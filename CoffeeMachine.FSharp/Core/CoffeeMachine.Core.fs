@@ -13,11 +13,11 @@ let showMessage display message =
 let display message =
   printfn "%s" message
 
-let make''' drinkRepository display maker (orderStr: string) : Beverage option =
+let make''' drinkRepository display beverageMaker (orderStr: string)  =
   if orderStr.StartsWith("M")
   then showMessage display orderStr
        None
-  else match makeBeverage orderStr with
+  else match beverageMaker orderStr with
        | Message m -> display m
                       None
        | Drink drink -> match drink with
@@ -25,4 +25,4 @@ let make''' drinkRepository display maker (orderStr: string) : Beverage option =
                                            |> fst drinkRepository
                                            |> Some
 
-                        | None -> None 
+                        | None -> None

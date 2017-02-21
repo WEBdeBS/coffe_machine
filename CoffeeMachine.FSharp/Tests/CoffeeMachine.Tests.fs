@@ -27,63 +27,86 @@ let loadAll: BeverageReport list =
 
 let fakeRepository = save, loadAll
 
+let mutable displayed = false
+let mutable messageDisplayed = ""
+let fakeDisplay message =
+  displayed <- true
+  messageDisplayed <- message
+
+let mutable made = false
+let fakeBeverageMaker order =
+  made <- true
+  {Beverage = Coffee; ExtraHot = true; Price = 0.2; Stick = true; Sugar = 1}
+  |> Some |> Drink
+
+let reset () =
+  made <- false
+  displayed <- false
+  saved <- false
 
 [<Fact>]
-let ``It should make tea`` () =
+let ``It should be able to make any Beverage`` () =
+  reset()
+  let fakeMake = make''' fakeRepository fakeDisplay fakeBeverageMaker
+  let drink = "pippo" |> fakeMake |> extract
 
-  let order = "T:1:0.6"
-  let beverage = order |> make |> extract
-
-  beverage.Beverage
-  |> should equal Tea
-  beverage.Sugar
-  |> should equal 1
-  beverage.Stick
-  |> should be True
-  beverage.Price |> should equal 0.4
-
-[<Fact>]
-let ``It should make Chocolate with no sugar`` () =
-    let order = "H::0.6"
-    let beverage = order |> make |> extract
-
-    beverage.Beverage |> should equal Chocolate
-    beverage.Sugar |> should equal 0
-    beverage.Stick |> should be False
-    beverage.Price |> should equal 0.5
-
-[<Fact>]
-let ``It should make Coffee with two sugar and a stick``() =
-  let order = "C:2:0.6"
-  let drink = make order |> extract
+  made |> should be True
+  saved |> should be True
   drink.Beverage |> should equal Coffee
-  drink.Sugar |> should equal 2
-  drink.Stick |> should be True
-  drink.Price |> should equal 0.6
+  drink.Sugar |> should equal 1
+  drink.ExtraHot |> should be True
+  drink.Price |> should equal 0.2
 
 [<Fact>]
 let ``It should not make an unknown drink``() =
-    let order = "A:0:0.6"
+  reset()
+  let noDrinkMaker order =
+    made <- true
+    None |> Drink
 
-    match make order with
-    | None -> ()
-    | _ -> failwith "fail!!!"
+  let make = make''' fakeRepository fakeDisplay noDrinkMaker
+
+  "pippo"
+  |> make
+  |> function
+  | None -> ()
+  | _ -> failwith "I have a drink!!"
+
+  made |> should be True
+  saved |> should be False
 
 [<Fact>]
 let ``It should display messages on the interface`` () =
-  //Mocking function??
-  let mutable testMessage = "Pippo"
-  let display message =
-    testMessage <- message
-  let order = "M:message-content"
-  //let beverage = make' display order
-  testMessage |> should equal "message-content"
+  reset ()
+  let make = make''' fakeRepository fakeDisplay fakeBeverageMaker
+
+  "M:message-content"
+  |> make
+  |> function
+  | None -> ()
+  | _ -> failwith "I have a drink!!"
+
+
+  messageDisplayed |> should equal "message-content"
+  displayed |> should be True
+  saved |> should be False
+  made |> should be False
 
 [<Fact>]
 let ``It should Not make coffee if not enough money`` () =
-  let order = "C:0:0.2"
-  let mutable testMessage = "Pippo"
-  let display message =
-    testMessage <- message
-  //let beverage = make' display order
-  testMessage |> should equal "0.4 Euros missing"
+  reset ()
+  
+  let fakeMaker order =
+    order |> should equal "pluto"
+    "paperino" |> Message
+
+  let maker = make''' fakeRepository fakeDisplay fakeMaker
+  "pluto"
+  |> maker
+  |> function
+  | None -> ()
+  | _ -> failwith "This is not goot"
+
+  displayed |> should be True
+  messageDisplayed |> should equal "paperino"
+  saved |> should be False
