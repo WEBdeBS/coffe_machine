@@ -112,5 +112,8 @@ let ``It should Not make coffee if not enough money`` () =
   displayed |> should be True
   messageDisplayed |> should equal "paperino"
   saved |> should be False
-[<Fact>]
-let ``I should be able to print a receipt``() =
+
+//[<Fact>]
+//let ``I should be able to print a receipt``() =
+//  let printReceipt = printReceipt' fakeRepository
+//  ()
