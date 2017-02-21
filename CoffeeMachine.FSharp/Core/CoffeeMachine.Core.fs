@@ -3,6 +3,7 @@ open System
 open System.Text.RegularExpressions
 open CoffeeMachine.Maker
 open DrinkMaker.Data
+open CoffeeMachine.DrinkRepository
 
 let showMessage display message =
   let pattern  = "^M:(.*)$"
@@ -18,8 +19,12 @@ let make'' maker display (orderStr: string) =
        None
   else match makeBeverage orderStr with
        | Message m -> display m
-                      None
-       | Drink d -> d
+                      None                      
+       | Drink drink -> match drink with
+                        | Some beverage -> let save, _ = drinkRepo
+                                           save beverage |> Some
+                         
+                        | None -> failwith "Error"
 
 let make' display orderStr =
   make'' makeBeverage display orderStr

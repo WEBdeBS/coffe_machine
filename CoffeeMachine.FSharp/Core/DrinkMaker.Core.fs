@@ -52,5 +52,5 @@ let makeBeverage' priceList orderStr =
         sprintf "%.1f Euros missing" (beverageType |> parseBeverage |> priceList |> invertedSubtract  m) |> Message
   | b, _, h when b = Orange && h  -> "Cannot make an hot Orange Juice" |> Message
   | _ , _, h ->  Some { Beverage= parseBeverage beverageType; Sugar = parseSugar sugar;
-                  Stick =  parseSugar >> parseSpoons <| sugar; ExtraHot = h }
+                  Stick =  parseSugar >> parseSpoons <| sugar; ExtraHot = h; Price = beverageType |> parseBeverage |> priceList }
                   |> Drink

@@ -26,6 +26,7 @@ let ``It should make tea`` () =
   |> should equal 1
   beverage.Stick
   |> should be True
+  beverage.Price |> should equal 0.4
 
 [<Fact>]
 let ``It should make Chocolate with no sugar`` () =
@@ -35,6 +36,7 @@ let ``It should make Chocolate with no sugar`` () =
     beverage.Beverage |> should equal Chocolate
     beverage.Sugar |> should equal 0
     beverage.Stick |> should be False
+    beverage.Price |> should equal 0.5
 
 [<Fact>]
 let ``It should make Coffee with two sugar and a stick``() =
@@ -43,6 +45,7 @@ let ``It should make Coffee with two sugar and a stick``() =
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 2
   drink.Stick |> should be True
+  drink.Price |> should equal 0.6
 
 [<Fact>]
 let ``It should not make an unknown drink``() =
