@@ -8,11 +8,25 @@ open CoffeeMachine.PriceList
 open CoffeeMachine.Main
 open DrinkMaker.Data
 open CoffeeMachine.Core
+open CoffeeMachine.DrinkRepository
 
 let extract  =
   function
   | Some b -> b
   | None -> failwith "No cup!"
+
+let mutable saved = false
+let save (beverage: Beverage) =
+  saved <- true
+  beverage
+
+let mutable loaded = false
+let loadAll: BeverageReport list =
+  loaded <- true
+  list.Empty
+
+let fakeRepository = save, loadAll
+
 
 [<Fact>]
 let ``It should make tea`` () =
@@ -62,7 +76,7 @@ let ``It should display messages on the interface`` () =
   let display message =
     testMessage <- message
   let order = "M:message-content"
-  let beverage = make' display order
+  //let beverage = make' display order
   testMessage |> should equal "message-content"
 
 [<Fact>]
@@ -71,5 +85,5 @@ let ``It should Not make coffee if not enough money`` () =
   let mutable testMessage = "Pippo"
   let display message =
     testMessage <- message
-  let beverage = make' display order
+  //let beverage = make' display order
   testMessage |> should equal "0.4 Euros missing"

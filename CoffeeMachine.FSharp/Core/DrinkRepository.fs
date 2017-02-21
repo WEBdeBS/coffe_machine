@@ -1,14 +1,15 @@
 module CoffeeMachine.DrinkRepository
 
 open DrinkMaker.Data
+open System
 open MongoDB.Bson
 open MongoDB.Driver
 open MongoDB.FSharp
 
 type BeverageReportDb = {
     Id: BsonObjectId;
-    Beverage: string    
-    Price: float    
+    Beverage: string
+    Price: float
 }
 
 
@@ -17,12 +18,16 @@ type BeverageReport = {
     Price: float
 }
 
+type Pippo = {
+    Pluto: string
+}
+
 
 let connectionString = "mongodb://localhost"
 let client = new MongoClient(connectionString)
 let db = client.GetDatabase("Test")
 
-let save' (db: IMongoDatabase) (drink: Beverage) =  
+let save' (db: IMongoDatabase) (drink: Beverage) =
   let id = BsonObjectId(ObjectId.GenerateNewId())
   let collection = db.GetCollection<BeverageReportDb>("drinks")
   let beverage = match drink.Beverage with
@@ -42,15 +47,15 @@ let deserializeBeverage s =
     | "Tea" -> Tea
     | "Orange" -> Orange
     | "Chocolate" -> Chocolate
-    | _ -> failwith "Invalid beverage type" 
+    | _ -> failwith "Invalid beverage type"
 
-let loadAll' (db: IMongoDatabase) = 
+let loadAll' (db: IMongoDatabase) =
     let collection = db.GetCollection<BeverageReportDb>("drinks")
-    collection.Find(FilterDefinition.Empty).ToList()    
+    collection.Find(FilterDefinition.Empty).ToList()
     |> Seq.map (fun b -> {Price = b.Price; Beverage = b.Beverage |> deserializeBeverage})
     |> List.ofSeq
 
 let mapDrik beverageReportDb =
-    List.map 
+    List.map
 
 let drinkRepo = save' db, loadAll' db
