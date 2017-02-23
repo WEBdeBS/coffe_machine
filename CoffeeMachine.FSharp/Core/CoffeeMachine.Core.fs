@@ -40,10 +40,16 @@ let make''' drinkRepository display beverageMaker (orderStr: string)  =
        with
          | _ -> display "Cannot understand order"
                 None
+let printTotal display reportLines =
+  reportLines
+  |> Seq.map (fun (d,c,t) -> t)
+  |> Seq.reduce (+)
+  |> sprintf "\nGrand total: %.2f\n"
+  |> display
 
 let printReceipt'' repository display =
   let data = Queryable.AsQueryable<BeverageReport>(snd repository)
-  query {
+  let report = query {
     for line in data do
     groupBy line.Beverage into g
     let lineTotal =
@@ -53,4 +59,7 @@ let printReceipt'' repository display =
       }
     select (g.Key, g.Count(), lineTotal)
   }
+  report
   |> Seq.iter (fun r -> printReport' display r)
+
+  printTotal display report
