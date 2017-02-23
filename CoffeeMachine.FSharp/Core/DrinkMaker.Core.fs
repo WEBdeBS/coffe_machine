@@ -32,12 +32,14 @@ let parseExtraHot (h:String) : bool =
 
 let parseOrderString order =
   let pattern = "^(\w{1})(h?)\:(\d*)\:(\d+\.\d+)$"
-  let matches = Regex.Match(order, pattern)
-  let beverageType = matches.Groups.[1].Value
-  let extraHot = matches.Groups.[2].Value
-  let sugar = matches.Groups.[3].Value
-  let money = matches.Groups.[4].Value
-  beverageType, extraHot, sugar, money
+  if Regex.IsMatch(order, pattern) then
+    let matches = Regex.Match(order, pattern)
+    let beverageType = matches.Groups.[1].Value
+    let extraHot = matches.Groups.[2].Value
+    let sugar = matches.Groups.[3].Value
+    let money = matches.Groups.[4].Value
+    beverageType, extraHot, sugar, money
+  else failwith "Invalid order format"
 
 //I don't like parenthesis :O)
 let invertedSubtract x y =

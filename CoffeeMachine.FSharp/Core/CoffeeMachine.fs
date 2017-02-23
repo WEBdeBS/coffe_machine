@@ -5,5 +5,8 @@ open CoffeeMachine.Core
 open CoffeeMachine.Maker
 open CoffeeMachine.DrinkRepository
 
-let make orderStr : Beverage option=
-  make''' drinkRepo display makeBeverage orderStr
+let make orderStr =
+  make''' drinkRepository display makeBeverage orderStr
+
+let printReceipt =
+  printReceipt'' drinkRepository display

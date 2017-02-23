@@ -11,4 +11,6 @@ let main argv =
          |> function
          | Some beverage -> printfn "Here's your drink:\n\n %A\n" beverage
          | None -> printfn "\nCouldn't make any drink. Look at the display"
+
+         printReceipt
          0

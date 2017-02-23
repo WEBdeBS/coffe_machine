@@ -53,9 +53,9 @@ let loadAll' (db: IMongoDatabase) =
     let collection = db.GetCollection<BeverageReportDb>("drinks")
     collection.Find(FilterDefinition.Empty).ToList()
     |> Seq.map (fun b -> {Price = b.Price; Beverage = b.Beverage |> deserializeBeverage})
-    |> List.ofSeq
+    |> Seq.toArray    
 
 let mapDrik beverageReportDb =
     List.map
 
-let drinkRepo = save' db, loadAll' db
+let drinkRepository = save' db, loadAll' db

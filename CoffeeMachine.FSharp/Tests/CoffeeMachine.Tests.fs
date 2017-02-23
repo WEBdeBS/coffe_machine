@@ -3,6 +3,7 @@ module CoffeeMachine.Tests
 
 open Xunit
 open FsUnit.Xunit
+open System.Linq
 open DrinkMaker.Data
 open CoffeeMachine.PriceList
 open CoffeeMachine.Main
@@ -21,7 +22,7 @@ let save (beverage: Beverage) =
   beverage
 
 let mutable loaded = false
-let loadAll: BeverageReport list =
+let loadAll=
   loaded <- true
   [{Beverage = Coffee; Price = 0.6};
   {Beverage = Chocolate; Price = 0.5};
@@ -113,7 +114,16 @@ let ``It should Not make coffee if not enough money`` () =
   messageDisplayed |> should equal "paperino"
   saved |> should be False
 
-//[<Fact>]
-//let ``I should be able to print a receipt``() =
-//  let printReceipt = printReceipt' fakeRepository
-//  ()
+[<Fact>]
+let ``I should be able to print a receipt``() =
+    query {
+      for line in snd fakeRepository do
+      groupBy line.Beverage into g
+      let lineTotal =
+        query {
+          for beverage in g do
+          sumBy beverage.Price
+        }
+      select (g.Key, g.Count(), lineTotal)
+    }
+    |> Seq.iter (fun r -> printReport' fakeDisplay r)
