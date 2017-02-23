@@ -116,14 +116,7 @@ let ``It should Not make coffee if not enough money`` () =
 
 [<Fact>]
 let ``I should be able to print a receipt``() =
-    query {
-      for line in snd fakeRepository do
-      groupBy line.Beverage into g
-      let lineTotal =
-        query {
-          for beverage in g do
-          sumBy beverage.Price
-        }
-      select (g.Key, g.Count(), lineTotal)
-    }
-    |> Seq.iter (fun r -> printReport' fakeDisplay r)
+  reset()
+  printReceipt'' fakeRepository fakeDisplay
+
+  displayed |> should be True
