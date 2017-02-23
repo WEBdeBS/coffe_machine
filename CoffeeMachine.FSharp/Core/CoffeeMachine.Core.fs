@@ -16,7 +16,7 @@ let display message =
 
 let printReport' display reportLine =
   let d, c, t = reportLine
-  sprintf "%A: %i; Total: %.2f" d  c t
+  sprintf "%A: %i; Total: %.2f" d c t
   |> display
 
 let printReport aTuple =

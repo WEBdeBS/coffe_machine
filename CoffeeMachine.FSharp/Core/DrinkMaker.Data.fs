@@ -1,15 +1,15 @@
 module DrinkMaker.Data
 
-type BeverageType = 
-  | InvalidOrder 
-  | Tea 
-  | Coffee  
-  | Chocolate 
-  | Orange 
+type BeverageType =
+  | InvalidOrder
+  | Tea
+  | Coffee
+  | Chocolate
+  | Orange
 
 type Beverage = {
     Beverage: BeverageType
-    ExtraHot: bool 
+    ExtraHot: bool
     Sugar: int
     Stick: bool
     Price: float

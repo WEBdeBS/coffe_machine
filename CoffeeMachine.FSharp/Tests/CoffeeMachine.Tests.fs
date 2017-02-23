@@ -118,5 +118,5 @@ let ``It should Not make coffee if not enough money`` () =
 let ``I should be able to print a receipt``() =
   reset()
   printReceipt'' fakeRepository fakeDisplay
-
+  loaded |> should be True
   displayed |> should be True
