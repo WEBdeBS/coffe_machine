@@ -29,6 +29,10 @@ let extract =
 //  drink.Sugar |> should equal sugar
 //  drink.Stick |> should equal stick
 
+[<Fact>]
+let ``it should throw exception if invalid order`` () =
+  (fun()  -> makeBeverage "pippo" |> ignore) |> should throw typeof<System.Exception>
+
 
 [<Fact>]
 let ``It can make coffee with enough money`` () =
@@ -80,7 +84,7 @@ let ``It can make extra hot coffee``() =
   drink.Beverage |> should equal Coffee
   drink.ExtraHot |> should be True
   drink.Price |> should equal 0.6
-  
+
 
 [<Fact>]
 let ``It cannot make an extra hot Orage Juice...`` () =
