@@ -25,7 +25,7 @@ let parseMoney money =
 let parseSpoons sugar =
   sugar > 0
 
-let parseExtraHot (h:String) : bool =
+let parseExtraHot h : bool =
   if String.IsNullOrEmpty h
   then false
   else h.EndsWith ("h")
