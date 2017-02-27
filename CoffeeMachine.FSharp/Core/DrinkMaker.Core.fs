@@ -7,10 +7,10 @@ open System
 
 
 let makeBeverage''' parseOrder priceList beverageQuantityChecker orderStr =
-  let order = parseOrder orderStr  
-  
+  let order = parseOrder orderStr
+
   match order.Beverage, order.MoneyInserted, order.ExtraHot, beverageQuantityChecker order.Beverage with
-  | InvalidOrder, _, _, _ -> None |> Drink
+  | InvalidOrder, _, _, _ -> orderStr |>  sprintf "%s is not a valid order " |> Message
   | _, _, _, Some m -> m |> Message
   | _, m, _, _ when ( (order.Beverage |> priceList) - order.MoneyInserted) > 0.0 ->
       sprintf "%.1f Euros missing" ((order.Beverage |> priceList) - order.MoneyInserted)
