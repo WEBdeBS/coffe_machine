@@ -18,6 +18,7 @@ let printReport' display reportLine =
   let d, c, t = reportLine
   sprintf "%A: %i; Total: %.2f" d c t
   |> display
+  true
 
 let printReport aTuple =
     printReport' display aTuple
@@ -60,6 +61,5 @@ let printReceipt'' repository display =
     select (g.Key, g.Count(), lineTotal)
   }
   report
-  |> Seq.iter (fun r -> printReport' display r)
-
-  printTotal display report
+  |> Seq.filter (fun r -> printReport' display r)
+  |> printTotal display
