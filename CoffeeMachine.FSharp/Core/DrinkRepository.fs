@@ -1,6 +1,7 @@
 module CoffeeMachine.DrinkRepository
 
 open DrinkMaker.Data
+
 open System
 open MongoDB.Bson
 open MongoDB.Driver
@@ -36,7 +37,7 @@ let save' (db: IMongoDatabase) (drink: Beverage) =
                  | Orange -> "Orange"
                  | Chocolate -> "Chocolate"
                  | InvalidOrder -> failwith "Cannot save an invalid order"
-  let record = {Id = id; Beverage = beverage; Price = drink.Price}
+  let record = {Id = id; Beverage = beverage; Price = drink.MoneyInserted}
   collection.InsertOne(record)
   drink
 
@@ -53,7 +54,7 @@ let loadAll' (db: IMongoDatabase) =
     let collection = db.GetCollection<BeverageReportDb>("drinks")
     collection.Find(FilterDefinition.Empty).ToList()
     |> Seq.map (fun b -> {Price = b.Price; Beverage = b.Beverage |> deserializeBeverage})
-    |> Seq.toArray    
+    |> Seq.toArray
 
 let mapDrik beverageReportDb =
     List.map

@@ -6,6 +6,7 @@ open CoffeeMachine.Maker
 open CoffeeMachine.PriceList
 open DrinkMaker.Data
 open DrinkMaker.Core
+open DrinkMaker.OrderParser.Main
 
 
 let extract =
@@ -40,13 +41,13 @@ let ``It can make coffee with enough money`` () =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.9"
-  let drink = makeBeverage' getPrice order |> extract
+  let drink = makeBeverage''  parseOrder getPrice order |> extract
 
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
   drink.Stick |> should be True
   drink.ExtraHot |> should be False
-  drink.Price |> should equal 0.7
+  drink.MoneyInserted |> should equal 0.7
 
 [<Fact>]
 let ``Cannot make coffee if I don't have enough money`` () =
@@ -54,7 +55,7 @@ let ``Cannot make coffee if I don't have enough money`` () =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.4"
-  let drink = makeBeverage' getPrice order
+  let drink = makeBeverage'' parseOrder  getPrice order
 
   let message =
     match drink with
@@ -71,7 +72,7 @@ let ``Can Make an Orange juice for .6 euros`` () =
   drink.Beverage |> should equal Orange
   drink.Sugar |> should equal 1
   drink.ExtraHot |> should be False
-  drink.Price |> should equal 0.6
+  drink.MoneyInserted |> should equal 0.6
 
 [<Fact>]
 let ``It can make extra hot coffee``() =
@@ -83,7 +84,7 @@ let ``It can make extra hot coffee``() =
   drink.Sugar |> should equal 1
   drink.Beverage |> should equal Coffee
   drink.ExtraHot |> should be True
-  drink.Price |> should equal 0.6
+  drink.MoneyInserted |> should equal 0.6
 
 
 [<Fact>]

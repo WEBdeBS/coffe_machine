@@ -7,12 +7,17 @@ type BeverageType =
   | Chocolate
   | Orange
 
+type OrderMoney =
+  | MoneyInserted of float
+  | MoneyLeft of float
+  | Price of float
+
 type Beverage = {
     Beverage: BeverageType
     ExtraHot: bool
     Sugar: int
     Stick: bool
-    Price: float
+    MoneyInserted: float
 }
 
 type Drink =

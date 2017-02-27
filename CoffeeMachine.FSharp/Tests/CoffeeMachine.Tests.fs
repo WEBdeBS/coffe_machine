@@ -39,7 +39,7 @@ let fakeDisplay message =
 let mutable made = false
 let fakeBeverageMaker order =
   made <- true
-  {Beverage = Coffee; ExtraHot = true; Price = 0.2; Stick = true; Sugar = 1}
+  {Beverage = Coffee; ExtraHot = true; MoneyInserted = 0.2; Stick = true; Sugar = 1}
   |> Some |> Drink
 
 let reset () =
@@ -58,7 +58,7 @@ let ``It should be able to make any Beverage`` () =
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
   drink.ExtraHot |> should be True
-  drink.Price |> should equal 0.2
+  drink.MoneyInserted |> should equal 0.2
 
 [<Fact>]
 let ``It should not make an unknown drink``() =

@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="DrinkMaker.Data.fs" />
     <Compile Include="PriceList.fs" />
+    <Compile Include="DrinkMaker.OrderParser.Core.fs" />
+    <Compile Include="DrinkMaker.OrderParser.fs" />
     <Compile Include="QuantityChecker.Core.fs" />
     <Compile Include="QuantityChecker.fs" />
     <Compile Include="DrinkMaker.Core.fs" />
