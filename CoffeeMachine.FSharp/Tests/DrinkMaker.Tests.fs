@@ -16,6 +16,14 @@ let extract =
                | None -> failwith "Error!"
   |Message m -> failwithf "I wanted a drink, got a message: %s" m
 
+let mutable quantityChecked = false
+let quantityChecker (drink: BeverageType) : string option=
+  quantityChecked <- true
+  None
+
+
+let reset () =
+  quantityChecked <- false
 
 //[<Theory>]
 //[<InlineData("C:1:0.9", Chocolate, 0.6)>]
@@ -37,25 +45,29 @@ let ``it should throw exception if invalid order`` () =
 
 [<Fact>]
 let ``It can make coffee with enough money`` () =
+
+  reset ()
   let getPrice beverageType =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.9"
-  let drink = makeBeverage''  parseOrder getPrice order |> extract
+  let drink = makeBeverage''' parseOrder getPrice quantityChecker order |> extract
 
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
   drink.Stick |> should be True
   drink.ExtraHot |> should be False
   drink.MoneyInserted |> should equal 0.7
+  quantityChecked |> should be True
 
 [<Fact>]
 let ``Cannot make coffee if I don't have enough money`` () =
+  reset()
   let getPrice beverageType =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.4"
-  let drink = makeBeverage'' parseOrder  getPrice order
+  let drink = makeBeverage''' parseOrder  getPrice quantityChecker order
 
   let message =
     match drink with
@@ -63,9 +75,12 @@ let ``Cannot make coffee if I don't have enough money`` () =
     | Message m -> m
 
   message |> should equal "0.3 Euros missing"
+  quantityChecked |> should be True
 
 [<Fact>]
 let ``Can Make an Orange juice for .6 euros`` () =
+  reset()
+
   let drink = "O:1:0.6" |> makeBeverage |> extract
 
   drink.Stick |> should be True
@@ -76,6 +91,7 @@ let ``Can Make an Orange juice for .6 euros`` () =
 
 [<Fact>]
 let ``It can make extra hot coffee``() =
+  reset()
   let drink = "Ch:1:0.6"
               |> makeBeverage
               |> extract
@@ -89,7 +105,7 @@ let ``It can make extra hot coffee``() =
 
 [<Fact>]
 let ``It cannot make an extra hot Orage Juice...`` () =
-
+  reset()
   let order = "Oh:1:0.6"
   let drink = makeBeverage order
 
