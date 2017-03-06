@@ -53,7 +53,7 @@ let printTotal display reportLines =
 
 let printReceipt'' repository display =
   let data = Queryable.AsQueryable<BeverageReport>(snd repository)
-  let report = query {
+  query {
     for line in data do
     groupBy line.Beverage into g
     let lineTotal =
@@ -62,7 +62,6 @@ let printReceipt'' repository display =
         sumBy beverage.Price
       }
     select (g.Key, g.Count(), lineTotal)
-  }
-  report
+  }  
   |> Seq.filter (fun r -> printReport' display r)
   |> printTotal display
