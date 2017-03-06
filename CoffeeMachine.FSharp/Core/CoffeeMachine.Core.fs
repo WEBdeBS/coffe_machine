@@ -41,6 +41,9 @@ let make''' drinkRepository display beverageMaker (orderStr: string)  =
        with
          | _ -> display "Cannot understand order"
                 None
+
+
+
 let printTotal display reportLines =
   reportLines
   |> Seq.map (fun (d,c,t) -> t)
