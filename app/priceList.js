@@ -1,10 +1,15 @@
 module.exports = function (beverageType){
-  const priceList = { T : 0.4, H : 0.5, C : 0.6, O : 0.8 }
+  const priceList = { 
+    T : 0.4, 
+    H : 0.5, 
+    C : 0.6, 
+    O : 0.8     
+  }
   
   if (priceList[beverageType]){
     return {type: beverageType, price: priceList[beverageType]}
   }
-  return undefined
+  throw new Error('undefined is not a function')
 }
 
 
