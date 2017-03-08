@@ -1,0 +1,20 @@
+{
+  "name": "mars_rover_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/**/*.js -w"
+  },
+  "keywords": [],
+  "author": "Emanuele DelBono <emanuele@codiceplastico.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.2.0",
+    "proxyquire": "1.7.11"
+  },
+  "devDependencies": {
+    "atom-ui-reporter": "0.0.1"
+  }
+}

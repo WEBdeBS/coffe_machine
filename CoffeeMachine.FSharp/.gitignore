@@ -1,0 +1,8 @@
+bin/
+build/
+.fake/
+obj/
+packages/
+FSharp/.paket/*
+FSharp/xunit.html
+FSharp/.paket.lock
