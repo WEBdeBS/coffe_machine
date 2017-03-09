@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/**/*.js -w"
+    "test": "mocha ./test/**/*.js"
   },
   "keywords": [],
   "author": "Emanuele DelBono <emanuele@codiceplastico.com>",

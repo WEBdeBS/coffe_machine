@@ -6,6 +6,7 @@ let amount = 0;
 let beverages = {}
 
 function beverageDecorator(beverage, beverageType) {
+
   if (!beverageType[1]) {
     return beverage
   }
