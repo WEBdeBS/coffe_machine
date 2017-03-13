@@ -7,6 +7,9 @@ open System
 open MongoDB.Bson
 open MongoDB.Driver
 
+let db'' (connectionString: string) (dbName: string) =
+  let client = MongoClient connectionString
+  client.GetDatabase(dbName)
 
 let save' (db: IMongoDatabase) (drink: Beverage) =
   let id = BsonObjectId(ObjectId.GenerateNewId())

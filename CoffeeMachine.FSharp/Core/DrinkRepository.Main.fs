@@ -7,12 +7,11 @@ open MongoDB.Driver
 
 
 let connectionString = "mongodb://localhost"
-let client = MongoClient connectionString
-let db = client.GetDatabase("Test")
+let dbName = "Test"
 
 NamelessInteractive.FSharp.MongoDB.SerializationProviderModule.Register()
 NamelessInteractive.FSharp.MongoDB.Conventions.ConventionsModule.Register()
 
-
+let db = db'' connectionString dbName
 
 let drinkRepository = save' db, loadAll' db
