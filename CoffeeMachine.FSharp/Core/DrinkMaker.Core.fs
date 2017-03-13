@@ -6,10 +6,10 @@ open QuantityChecker
 open System
 
 let notEnoughMoney priceList order =  
-  (order.Beverage |> priceList) - order.MoneyInserted > 0.0
+   priceList order.Beverage - order.MoneyInserted > 0.0
 
 let missingMoney priceList order =
-  (order.Beverage |> priceList) - order.MoneyInserted
+  priceList order.Beverage - order.MoneyInserted
 
 
 let makeBeverage''' parseOrder priceList beverageQuantityChecker orderStr =
