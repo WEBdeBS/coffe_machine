@@ -3,5 +3,5 @@ nuget FAKE
 nuget FSharp.Core
 nuget FsUnit.xUnit
 nuget MongoDB.Driver
-nuget MongoDB.FSharp
+nuget namelessinteractive.fsharp.mongodb
 nuget xunit.runner.console
