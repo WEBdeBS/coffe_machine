@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Name>Core</Name>
@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrinkMaker.Data.fs" />
@@ -50,8 +51,8 @@
     <Compile Include="DrinkMaker.fs" />
     <Compile Include="DrinkRepository.Data.fs" />
     <Compile Include="DrinkRepository.Core.fs" />
-    <Compile Include="DrinkRepository.Main.fs" />
     <Compile Include="CoffeeMachine.Core.fs" />
+    <Compile Include="DrinkRepository.Main.fs" />
     <Compile Include="CoffeeMachine.fs" />
     <Compile Include="Properties/AssemblyInfo.fs" />
   </ItemGroup>
