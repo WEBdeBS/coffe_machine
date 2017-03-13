@@ -34,24 +34,9 @@ NamelessInteractive.FSharp.MongoDB.Conventions.ConventionsModule.Register()
 let save' (db: IMongoDatabase) (drink: Beverage) =
   let id = BsonObjectId(ObjectId.GenerateNewId())
   let collection = db.GetCollection<BeverageReportDb>("drinks")
-//   let beverage = match drink.Beverage with
-//                  | Coffee -> "Coffee"
-//                  | Tea -> "Tea"
-//                  | Orange -> "Orange"
-//                  | Chocolate -> "Chocolate"
-//                  | InvalidOrder -> failwith "Cannot save an invalid order"
   let record = {Id = id; Beverage = drink.Beverage; Price = drink.MoneyInserted}
   collection.InsertOne(record)
   drink
-
-//For some reason, the discrimated union is not saved :-\
-let deserializeBeverage s =
-    match s with
-    | "Coffee" -> Coffee
-    | "Tea" -> Tea
-    | "Orange" -> Orange
-    | "Chocolate" -> Chocolate
-    | _ -> failwith "Invalid beverage type"
 
 let loadAll' (db: IMongoDatabase) =
     let collection = db.GetCollection<BeverageReportDb>("drinks")
