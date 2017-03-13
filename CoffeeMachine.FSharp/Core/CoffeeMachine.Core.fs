@@ -3,7 +3,7 @@ open System
 open System.Text.RegularExpressions
 open CoffeeMachine.Maker
 open DrinkMaker.Data
-open CoffeeMachine.DrinkRepository
+open CoffeeMachine.DrinkRepository.Data
 open System.Linq
 
 let showMessage display message =

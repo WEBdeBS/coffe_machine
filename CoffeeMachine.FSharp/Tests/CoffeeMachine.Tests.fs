@@ -9,7 +9,7 @@ open CoffeeMachine.PriceList
 open CoffeeMachine.Main
 open DrinkMaker.Data
 open CoffeeMachine.Core
-open CoffeeMachine.DrinkRepository
+open CoffeeMachine.DrinkRepository.Data
 
 let extract  =
   function

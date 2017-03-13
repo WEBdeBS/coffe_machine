@@ -1,34 +1,11 @@
-module CoffeeMachine.DrinkRepository
+module CoffeeMachine.DrinkRepository.Core
 
 open DrinkMaker.Data
+open CoffeeMachine.DrinkRepository.Data
 
 open System
 open MongoDB.Bson
 open MongoDB.Driver
-
-
-type BeverageReportDb = {
-    Id: BsonObjectId
-    Beverage: BeverageType
-    Price: float
-}
-
-
-type BeverageReport = {
-    Beverage: BeverageType
-    Price: float
-}
-
-type Pippo = {
-    Pluto: string
-}
-
-let connectionString = "mongodb://localhost"
-let client = MongoClient connectionString
-let db = client.GetDatabase("Test")
-
-NamelessInteractive.FSharp.MongoDB.SerializationProviderModule.Register()
-NamelessInteractive.FSharp.MongoDB.Conventions.ConventionsModule.Register()
 
 
 let save' (db: IMongoDatabase) (drink: Beverage) =
@@ -44,7 +21,4 @@ let loadAll' (db: IMongoDatabase) =
     |> Seq.map (fun b -> {Price = b.Price; Beverage = b.Beverage})
     |> Seq.toArray
 
-let mapDrik beverageReportDb =
-    List.map
 
-let drinkRepository = save' db, loadAll' db
