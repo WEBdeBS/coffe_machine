@@ -14,6 +14,4 @@ let dbName = ConfigurationManager.AppSettings.Item("DbName")
 NamelessInteractive.FSharp.MongoDB.SerializationProviderModule.Register()
 NamelessInteractive.FSharp.MongoDB.Conventions.ConventionsModule.Register()
 
-let db = db'' connectionString dbName
-
-let drinkRepository = save' db, loadAll' db
+let drinkRepository = drinkRepository'' connectionString dbName

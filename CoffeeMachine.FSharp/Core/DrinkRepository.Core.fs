@@ -1,4 +1,4 @@
-module CoffeeMachine.DrinkRepository.Core
+module internal CoffeeMachine.DrinkRepository.Core
 
 open DrinkMaker.Data
 open CoffeeMachine.DrinkRepository.Data
@@ -24,4 +24,5 @@ let loadAll' (db: IMongoDatabase) =
     |> Seq.map (fun b -> {Price = b.Price; Beverage = b.Beverage})
     |> Seq.toArray
 
-
+let drinkRepository'' connectionString dbName =
+  save' (db'' connectionString dbName), loadAll' (db'' connectionString dbName)
