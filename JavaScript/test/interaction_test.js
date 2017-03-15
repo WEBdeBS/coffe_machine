@@ -12,10 +12,13 @@ const Coffee = proxyquire('../app', {
 describe('Coffe machine', function () {
   it('should notify when is empty', function (done) {
     checkerStub.isEmpty = () => true
+    let isCalled = false
     notifierStub.notifyMissingDrink = () => {
+      isCalled = true
       done()
     }
-    Coffee.make('T:0:0.5')
+    assert.throws(() => Coffee.make('T:0:0.5'))
+    assert.isTrue(isCalled)
   })
 
   it('should not notify when it isn\'t empty', function () {
