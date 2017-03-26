@@ -11,7 +11,7 @@ let parseOrder orderStr  =
       Beverage = parseBeverage beverageType
       ExtraHot = parseExtraHot extraHot
       Sugar = parseSugar sugar
-      Stick = sugar |> parseSugar |> parseSpoons
+      Stick = false
       MoneyInserted = parseMoney moneyInserted
       ListPrice = 0.0
     }

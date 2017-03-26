@@ -12,6 +12,7 @@ open Chessie.ErrorHandling
 let railway order =
   order
   |> parseOrder
+  >>= putStick
   >>= checkMoney priceList
   >>=  checkQuantity (fun b -> false) (ignore)
   >>= ``check that beverage makes sense``
