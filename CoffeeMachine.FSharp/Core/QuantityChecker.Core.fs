@@ -17,5 +17,3 @@ let checkQuantity isEmpty notifyMissingDrink beverage =
             sprintf "%A is empty. Vendor has been notified" beverage.Beverage |> fail
   | _    -> ok beverage
 
-let putStick beverage =  
-   {beverage with Stick = beverage.Sugar > 0}

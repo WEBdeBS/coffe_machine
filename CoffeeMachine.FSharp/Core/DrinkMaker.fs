@@ -8,7 +8,7 @@ open CoffeeMachine.PriceList
 open System.Text.RegularExpressions
 open System
 open Chessie.ErrorHandling
-
+ 
 
 //Not in chessie?? why?
 let switch f x = 
@@ -23,7 +23,5 @@ let makeBeverage orderStr =
     >>=  checkQuantity (fun b -> false) (ignore)
     >>= ``check that beverage makes sense``
     
-    
-
   orderStr
   |> makeBeverage' railway

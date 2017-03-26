@@ -10,3 +10,4 @@ let make orderStr=
 
 let printReceipt =
   printReceipt'' drinkRepository display
+ 

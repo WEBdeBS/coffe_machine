@@ -17,6 +17,9 @@ let ``check that beverage makes sense`` beverage =
   then fail "Cannot make an hot Orange Juice"
   else ok beverage
 
+let putStick beverage =  
+   {beverage with Stick = beverage.Sugar > 0}  
+
 let makeBeverage' railway orderStr =
   orderStr
   |> railway
