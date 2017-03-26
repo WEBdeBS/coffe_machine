@@ -24,26 +24,7 @@ let printReport' display reportLine =
 let printReport aTuple =
     printReport' display aTuple
 
-
-let make''' drinkRepository display beverageMaker (orderStr: string)  =
-  if orderStr.StartsWith("M")
-  then showMessage display orderStr
-       None
-  else try
-         match beverageMaker orderStr with
-         | Message m -> display m
-                        None
-         | Drink drink -> match drink with
-                          | Some beverage -> beverage
-                                             |> fst drinkRepository
-                                             |> Some
-
-                          | None -> None
-       with
-         | _ -> display "Cannot understand order"
-                None
-
-let make'''' drinkRepository display beverageMaker (orderStr: string) =
+let make''' drinkRepository display beverageMaker (orderStr: string) =
   if orderStr.StartsWith("M")
     then showMessage display orderStr
          None

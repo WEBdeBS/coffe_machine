@@ -18,8 +18,9 @@ type Beverage = {
     Sugar: int
     Stick: bool
     MoneyInserted: float
+    ListPrice: float
 }
 
 type Drink =
   | Message of string
-  | Drink of Beverage option
+  | Drink of Beverage

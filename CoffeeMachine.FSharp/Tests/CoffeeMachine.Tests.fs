@@ -10,6 +10,7 @@ open CoffeeMachine.Main
 open DrinkMaker.Data
 open CoffeeMachine.Core
 open CoffeeMachine.DrinkRepository.Data
+open Chessie.ErrorHandling
 
 let extract  =
   function
@@ -39,8 +40,8 @@ let fakeDisplay message =
 let mutable made = false
 let fakeBeverageMaker order =
   made <- true
-  {Beverage = Coffee; ExtraHot = true; MoneyInserted = 0.2; Stick = true; Sugar = 1}
-  |> Some |> Drink
+  ok {Beverage = Coffee; ExtraHot = true; MoneyInserted = 0.2; Stick = true; Sugar = 1; ListPrice = 0.7}
+  
 
 let reset () =
   made <- false
@@ -65,7 +66,7 @@ let ``It should not make an unknown drink``() =
   reset()
   let noDrinkMaker order =
     made <- true
-    None |> Drink
+    fail ""
 
   let make = make''' fakeRepository fakeDisplay noDrinkMaker
 
@@ -101,17 +102,16 @@ let ``It should Not make coffee if not enough money`` () =
 
   let fakeMaker order =
     order |> should equal "pluto"
-    "paperino" |> Message
+    fail "Not enough money"
 
-  let maker = make''' fakeRepository fakeDisplay fakeMaker
-  "pluto"
-  |> maker
-  |> function
-  | None -> ()
-  | _ -> failwith "This is not goot"
+  let drink = 
+    make''' fakeRepository fakeDisplay fakeMaker "pluto"  
+    |> function
+    | None -> ()
+    | _ -> failwith "This is not good"
 
   displayed |> should be True
-  messageDisplayed |> should equal "paperino"
+  messageDisplayed |> should equal "Not enough money"
   saved |> should be False
 
 [<Fact>]

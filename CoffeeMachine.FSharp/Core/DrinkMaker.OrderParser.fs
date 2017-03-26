@@ -5,16 +5,6 @@ open DrinkMaker.Data
 open Chessie.ErrorHandling
 
 let parseOrder orderStr  =
-    let beverageType, extraHot, sugar, moneyInserted = parseOrderString orderStr
-    {
-      Beverage = parseBeverage beverageType
-      ExtraHot = parseExtraHot extraHot
-      Sugar = parseSugar sugar
-      Stick = sugar |> parseSugar |> parseSpoons
-      MoneyInserted = parseMoney moneyInserted
-    }    
-
-let parseOrderFunctor orderStr  =
   try
     let beverageType, extraHot, sugar, moneyInserted = parseOrderString orderStr
     ok {
@@ -23,6 +13,7 @@ let parseOrderFunctor orderStr  =
       Sugar = parseSugar sugar
       Stick = sugar |> parseSugar |> parseSpoons
       MoneyInserted = parseMoney moneyInserted
+      ListPrice = 0.0
     }
     with 
       | _ -> fail ("Cannot understand order")

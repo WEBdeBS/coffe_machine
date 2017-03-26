@@ -7,14 +7,12 @@ open CoffeeMachine.PriceList
 open DrinkMaker.Data
 open DrinkMaker.Core
 open DrinkMaker.OrderParser.Main
-
+open Chessie.ErrorHandling
 
 let extract =
   function
-  | Drink d -> match d with
-               | Some b -> b
-               | None -> failwith "Error!"
-  |Message m -> failwithf "I wanted a drink, got a message: %s" m
+  | Ok(d,_) -> d
+  | Bad(s) -> failwithf "I wanted a drink, got a message: %A" s
 
 let mutable quantityChecked = false
 let quantityChecker (drink: BeverageType) : string option=
@@ -24,6 +22,10 @@ let quantityChecker (drink: BeverageType) : string option=
 
 let reset () =
   quantityChecked <- false
+
+let happyPath order =
+  ok {Beverage = Orange; ExtraHot = true; Sugar = 2; Stick = true; MoneyInserted = 0.9; ListPrice = 0.5}
+
 
 //[<Theory>]
 //[<InlineData("C:1:0.9", Chocolate, 0.6)>]
@@ -38,10 +40,6 @@ let reset () =
 //  drink.Sugar |> should equal sugar
 //  drink.Stick |> should equal stick
 
-[<Fact>]
-let ``it should throw exception if invalid order`` () =
-  (fun()  -> makeBeverage "pippo" |> ignore) |> should throw typeof<System.Exception>
-
 
 [<Fact>]
 let ``It can make coffee with enough money`` () =
@@ -51,31 +49,33 @@ let ``It can make coffee with enough money`` () =
     beverageType |> should equal Coffee
     0.7
   let order = "C:1:0.9"
-  let drink = makeBeverage''' parseOrder getPrice quantityChecker order |> extract
+  let drink = makeBeverage order |> extract
 
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
   drink.Stick |> should be True
   drink.ExtraHot |> should be False
-  drink.MoneyInserted |> should equal 0.7
-  quantityChecked |> should be True
+  drink.MoneyInserted |> should equal 0.9
+  drink.ListPrice |> should equal 0.6  
 
 [<Fact>]
 let ``Cannot make coffee if I don't have enough money`` () =
   reset()
-  let getPrice beverageType =
-    beverageType |> should equal Coffee
-    0.7
-  let order = "C:1:0.4"
-  let drink = makeBeverage''' parseOrder  getPrice quantityChecker order
+
+  let order = "pippo"
+
+  let imp order =
+    order |> should equal "pippo"
+    fail "0.3 Euros missing"
+
+  let drink = makeBeverage' imp order
 
   let message =
     match drink with
-    | Drink d -> failwith "Error"
-    | Message m -> m
+    | Bad(m) -> m.[0]
+    | _ -> failwith "Error"
 
-  message |> should equal "0.3 Euros missing"
-  quantityChecked |> should be True
+  message |> should equal "0.3 Euros missing"  
 
 [<Fact>]
 let ``Can Make an Orange juice for .6 euros`` () =
@@ -103,15 +103,3 @@ let ``It can make extra hot coffee``() =
   drink.MoneyInserted |> should equal 0.6
 
 
-[<Fact>]
-let ``It cannot make an extra hot Orage Juice...`` () =
-  reset()
-  let order = "Oh:1:0.6"
-  let drink = makeBeverage order
-
-  let message =
-    match drink with
-    | Drink d -> failwith "Error, I was expecting a message"
-    | Message m -> m
-
-  message |> should equal "Cannot make an hot Orange Juice"

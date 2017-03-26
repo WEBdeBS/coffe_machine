@@ -9,25 +9,14 @@ open System.Text.RegularExpressions
 open System
 open Chessie.ErrorHandling
 
-let makeBeverage orderStr =
-  makeBeverage''' parseOrder priceList beverageQuantityChecker orderStr
-
-
-let railWay =
-  parseOrderFunctor
-  >> bind (checkMoney priceList)
-  >> bind (checkQuantity (fun b -> false) (ignore))
-  >> bind ``check that beverage makes sense``
-
-
-let railWayWithInfixOperator order =
+let railway order =
   order
-  |> parseOrderFunctor
-  >>= (checkMoney priceList)
-  >>=  (checkQuantity (fun b -> false) (ignore))
+  |> parseOrder
+  >>= checkMoney priceList
+  >>=  checkQuantity (fun b -> false) (ignore)
   >>= ``check that beverage makes sense``
 
 
-let makeBeverageWithFunctors orderStr =
+let makeBeverage orderStr =
   orderStr
-  |> railWayWithInfixOperator
+  |> makeBeverage' railway
