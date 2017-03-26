@@ -18,4 +18,4 @@ let checkQuantity isEmpty notifyMissingDrink beverage =
   | _    -> ok beverage
 
 let putStick beverage =  
-  ok {beverage with Stick = beverage.Sugar > 0}
+   {beverage with Stick = beverage.Sugar > 0}

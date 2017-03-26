@@ -9,15 +9,21 @@ open System.Text.RegularExpressions
 open System
 open Chessie.ErrorHandling
 
-let railway order =
-  order
-  |> parseOrder
-  >>= putStick
-  >>= checkMoney priceList
-  >>=  checkQuantity (fun b -> false) (ignore)
-  >>= ``check that beverage makes sense``
 
+//Not in chessie?? why?
+let switch f x = 
+    f x |> ok
 
 let makeBeverage orderStr =
+  let railway order =
+    order
+    |> parseOrder    
+    >>= lift putStick
+    >>= checkMoney priceList
+    >>=  checkQuantity (fun b -> false) (ignore)
+    >>= ``check that beverage makes sense``
+    
+    
+
   orderStr
   |> makeBeverage' railway
