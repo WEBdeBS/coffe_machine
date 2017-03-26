@@ -5,6 +5,7 @@ open CoffeeMachine.Maker
 open DrinkMaker.Data
 open CoffeeMachine.DrinkRepository.Data
 open System.Linq
+open Chessie.ErrorHandling
 
 let showMessage display message =
   let pattern  = "^M:(.*)$"
@@ -42,7 +43,19 @@ let make''' drinkRepository display beverageMaker (orderStr: string)  =
          | _ -> display "Cannot understand order"
                 None
 
-
+let make'''' drinkRepository display beverageMaker (orderStr: string) =
+  if orderStr.StartsWith("M")
+    then showMessage display orderStr
+         None
+    else orderStr
+         |> beverageMaker
+         |> function
+         | Bad message -> display message.[0]
+                          None
+         | Ok (beverage,_) -> beverage
+                              |> fst drinkRepository
+                              |> Some
+                        
 
 let printTotal display reportLines =
   reportLines

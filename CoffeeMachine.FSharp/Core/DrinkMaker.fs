@@ -24,10 +24,10 @@ let railWayWithInfixOperator order =
   order
   |> parseOrderFunctor
   >>= (checkMoney priceList)
-  >>= bind (checkQuantity (fun b -> false) (ignore))
-  >>= bind ``check that beverage makes sense``
+  >>=  (checkQuantity (fun b -> false) (ignore))
+  >>= ``check that beverage makes sense``
 
 
-let makeBeverageWithFunctors railWay orderStr =
+let makeBeverageWithFunctors orderStr =
   orderStr
-  |> railWay
+  |> railWayWithInfixOperator
