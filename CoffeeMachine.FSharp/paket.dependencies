@@ -5,3 +5,4 @@ nuget FsUnit.xUnit
 nuget MongoDB.Driver
 nuget namelessinteractive.fsharp.mongodb
 nuget xunit.runner.console
+nuget chessie
