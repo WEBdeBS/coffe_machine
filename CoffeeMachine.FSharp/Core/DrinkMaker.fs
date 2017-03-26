@@ -18,7 +18,7 @@ let makeBeverage orderStr =
   let railway order =
     order
     |> parseOrder    
-    >>= lift putStick
+    >>= switch putStick
     >>= checkMoney priceList
     >>=  checkQuantity (fun b -> false) (ignore)
     >>= ``check that beverage makes sense``
