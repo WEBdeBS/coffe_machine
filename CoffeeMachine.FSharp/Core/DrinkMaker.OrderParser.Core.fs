@@ -31,7 +31,7 @@ let parseExtraHot h : bool =
   else h.EndsWith ("h")
 
 let parseOrderString order =
-  let pattern = "^(\w{1})(h?)\:(\d*)\:(\d+\.\d+)$"
+  let pattern = orderPattern
   if Regex.IsMatch(order, pattern) then
     let matches = Regex.Match(order, pattern)
     let beverageType = matches.Groups.[1].Value
