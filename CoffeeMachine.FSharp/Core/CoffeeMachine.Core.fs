@@ -13,8 +13,7 @@ let (|OrderStr|MessageStr|OtherStr|) (input:string) =
   else OtherStr
 
 let showMessage display message =
-  let pattern  = messagePattern
-  let matches = Regex.Match(message, pattern)
+  let matches = Regex.Match(message, messagePattern)
   display matches.Groups.[1].Value
 
 let display message =

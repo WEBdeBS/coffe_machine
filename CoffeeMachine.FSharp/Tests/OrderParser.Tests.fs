@@ -51,21 +51,4 @@ let ``I should be able to parse an order`` (order: string) (bType: string) (suga
     |> parseOrder
     |> extractOk
     |> should equal bev
-[<Theory>]
-[<InlineData("M:La figa!!")>]
-[<InlineData("Th:2:0.9")>]
-[<InlineData("Pippo")>]
-let ``Can use active patterns`` (input: string) =
-      let orderPattern = "^(\w{1})(h?)\:(\d*)\:(\d+\.\d+)$"
-      let messagePattern = "^M:(.*)$"
-
-      let (|OrderStr|MessageStr|OtherStr|) (input:string) =
-        if Regex.IsMatch(input, orderPattern) then OrderStr
-        elif Regex.IsMatch(input, messagePattern) then MessageStr
-        else OtherStr
-
-
-      match input with
-      | MessageStr m -> printfn "%s è un messaggio!" input
-      | OrderStr o -> printfn "%s è un ordine!" input
-      | _ -> printfn "Cannot understand order %s" input
+    

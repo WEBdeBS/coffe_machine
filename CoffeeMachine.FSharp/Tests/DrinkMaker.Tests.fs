@@ -76,7 +76,6 @@ let ``Cannot make a beverage if something goes wrong`` () =
 
 
 [<Fact>]
-
 let ``Cannot make an hot Orange Juice`` () =
   reset ()
 
