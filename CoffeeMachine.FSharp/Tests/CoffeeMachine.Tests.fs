@@ -41,7 +41,7 @@ let mutable made = false
 let fakeBeverageMaker order =
   made <- true
   ok {Beverage = Coffee; ExtraHot = true; MoneyInserted = 0.2; Stick = true; Sugar = 1; ListPrice = 0.7}
-  
+
 
 let reset () =
   made <- false
@@ -49,10 +49,10 @@ let reset () =
   saved <- false
 
 [<Fact>]
-let ``It should be able to make any Beverage`` () =
+let ``It should be able to make any Beverage with a matching order :-)`` () =
   reset()
   let fakeMake = make''' fakeRepository fakeDisplay fakeBeverageMaker
-  let drink = "pippo" |> fakeMake |> extract
+  let drink = "Z:1:1.0" |> fakeMake |> extract
 
   made |> should be True
   saved |> should be True
@@ -76,7 +76,7 @@ let ``It should not make an unknown drink and display the error message``() =
   | None -> ()
   | _ -> failwith "I have a drink!!"
 
-  made |> should be True
+  made |> should be False
   saved |> should be False
   displayed |> should be True
 
@@ -98,22 +98,23 @@ let ``It should display messages on the interface`` () =
   made |> should be False
 
 [<Fact>]
-let ``It should Not make coffee if not enough money`` () =
+let ``Should catch invalid order`` () =
   reset ()
 
   let fakeMaker order =
-    order |> should equal "pluto"
-    fail "Not enough money"
+    made <- true
+    fail "should not be here"
 
-  let drink = 
-    make''' fakeRepository fakeDisplay fakeMaker "pluto"  
+  let drink =
+    make''' fakeRepository fakeDisplay fakeMaker "pluto"
     |> function
     | None -> ()
     | _ -> failwith "This is not good"
 
   displayed |> should be True
-  messageDisplayed |> should equal "Not enough money"
+  messageDisplayed |> should equal "Invalid Order: pluto"
   saved |> should be False
+  made |> should be False
 
 [<Fact>]
 let ``I should be able to print a receipt``() =

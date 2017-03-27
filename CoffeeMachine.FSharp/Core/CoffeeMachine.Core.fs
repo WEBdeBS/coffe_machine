@@ -29,37 +29,23 @@ let printReport' display reportLine =
 let printReport aTuple =
     printReport' display aTuple
 
-//let make''' drinkRepository display beverageMaker orderStr =
-  //orderStr
-  //|> function
-  //| MessageStr -> showMessage display orderStr
-  //                None
-  //| OtherStr -> orderStr
-  //              |> sprintf "Invalid Order: %s"
-  //              |> display
-  //              None
-  //| OrderStr -> orderStr
-  //              |> beverageMaker
-  //              |> function
-  //              | Bad message -> display message.[0]
-  //                               None
-  //              | Ok (beverage, _) -> beverage
-  //                                    |> fst drinkRepository
-  //                                    |> Some
-
-let make''' drinkRepository display beverageMaker (orderStr: string) =
-  if orderStr.StartsWith("M")
-    then showMessage display orderStr
-         None
-    else orderStr
-         |> beverageMaker
-         |> function
-         | Bad message -> display message.[0]
-                          None
-         | Ok (beverage,_) -> beverage
-                              |> fst drinkRepository
-                              |> Some
-
+let make''' drinkRepository display beverageMaker orderStr =
+  orderStr
+  |> function
+  | MessageStr -> showMessage display orderStr
+                  None
+  | OtherStr -> orderStr
+                |> sprintf "Invalid Order: %s"
+                |> display
+                None
+  | OrderStr -> orderStr
+                |> beverageMaker
+                |> function
+                | Bad message -> display message.[0]
+                                 None
+                | Ok (beverage, _) -> beverage
+                                      |> fst drinkRepository
+                                      |> Some
 
 let printTotal display reportLines =
   reportLines
