@@ -8,14 +8,15 @@ open DrinkMaker.Data
 open Microsoft.FSharp.Reflection
 open DrinkMaker.OrderParser.Main
 open Chessie.ErrorHandling
+open System.Text.RegularExpressions
 
 let fromString<'a> (s:string) =
     match FSharpType.GetUnionCases typeof<'a> |> Array.filter (fun case -> case.Name = s) with
     |[|case|] -> Some(FSharpValue.MakeUnion(case,[||]) :?> 'a)
     |_ -> None
 
-let extract = 
-    function 
+let extract =
+    function
     | Some i ->i
     | None -> failwith "Error!!"
 
@@ -38,7 +39,7 @@ let extractOk =
 let ``I should be able to parse an order`` (order: string) (bType: string) (sugar: int) (moneyInserted: float) (extraHot: bool) =
 
 
-    let bev = 
+    let bev =
         {
         Beverage = fromString<BeverageType> bType |> extract
         ExtraHot = extraHot
@@ -48,12 +49,25 @@ let ``I should be able to parse an order`` (order: string) (bType: string) (suga
         Stick = false
     }
 
-    order 
-    |> parseOrder 
-    |> extractOk 
+    order
+    |> parseOrder
+    |> extractOk
     |> should equal bev
+[<Theory>]
+[<InlineData("M:La figa!!")>]
+[<InlineData("Th:2:0.9")>]
+[<InlineData("Pippo")>]
+let ``Can use active patterns`` (input: string) =
+      let orderPattern = "^(\w{1})(h?)\:(\d*)\:(\d+\.\d+)$"
+      let messagePattern = "^M:(.*)$"
 
-    
-    
+      let (|OrderStr|MessageStr|OtherStr|) (input:string) =
+        if Regex.IsMatch(input, orderPattern) then OrderStr
+        elif Regex.IsMatch(input, messagePattern) then MessageStr
+        else OtherStr
 
 
+      match input with
+      | MessageStr m -> printfn "%s è un messaggio!" input
+      | OrderStr o -> printfn "%s è un ordine!" input
+      | _ -> printfn "Cannot understand order %s" input

@@ -1,5 +1,8 @@
 module DrinkMaker.Data
 
+let orderPattern = "^(\w{1})(h?)\:(\d*)\:(\d+\.\d+)$"
+let messagePattern = "^M:(.*)$"
+
 type BeverageType =
   | InvalidOrder
   | Tea
