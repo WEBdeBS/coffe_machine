@@ -42,24 +42,22 @@ let happyPath order =
 
 
 [<Fact>]
-let ``It can make coffee with enough money`` () =
+let ``It can make beverage if I'm on the happy path`` () =
 
   reset ()
-  let getPrice beverageType =
-    beverageType |> should equal Coffee
-    0.7
-  let order = "C:1:0.9"
-  let drink = makeBeverage order |> extract
+  
+  let order = "pippo"
+  let drink = makeBeverage' happyPath order |> extract
 
-  drink.Beverage |> should equal Coffee
-  drink.Sugar |> should equal 1
+  drink.Beverage |> should equal Orange
+  drink.Sugar |> should equal 2
   drink.Stick |> should be True
-  drink.ExtraHot |> should be False
+  drink.ExtraHot |> should be True
   drink.MoneyInserted |> should equal 0.9
-  drink.ListPrice |> should equal 0.6  
+  drink.ListPrice |> should equal 0.5
 
 [<Fact>]
-let ``Cannot make coffee if I don't have enough money`` () =
+let ``Cannot make a beverage if I don't have enough money`` () =
   reset()
 
   let order = "pippo"
@@ -77,29 +75,5 @@ let ``Cannot make coffee if I don't have enough money`` () =
 
   message |> should equal "0.3 Euros missing"  
 
-[<Fact>]
-let ``Can Make an Orange juice for .6 euros`` () =
-  reset()
-
-  let drink = "O:1:0.6" |> makeBeverage |> extract
-
-  drink.Stick |> should be True
-  drink.Beverage |> should equal Orange
-  drink.Sugar |> should equal 1
-  drink.ExtraHot |> should be False
-  drink.MoneyInserted |> should equal 0.6
-
-[<Fact>]
-let ``It can make extra hot coffee``() =
-  reset()
-  let drink = "Ch:1:0.6"
-              |> makeBeverage
-              |> extract
-
-  drink.Stick |> should be True
-  drink.Sugar |> should equal 1
-  drink.Beverage |> should equal Coffee
-  drink.ExtraHot |> should be True
-  drink.MoneyInserted |> should equal 0.6
 
 
