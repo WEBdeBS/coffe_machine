@@ -14,6 +14,11 @@ let extract =
   | Ok(d,_) -> d
   | Bad(s) -> failwithf "I wanted a drink, got a message: %A" s
 
+let extractError =
+  function
+  | Ok(d,_) -> failwith "I wanted an error, got a drink"
+  | Bad(s) -> s.[0]
+
 let mutable quantityChecked = false
 let quantityChecker (drink: BeverageType) : string option=
   quantityChecked <- true
@@ -23,22 +28,10 @@ let quantityChecker (drink: BeverageType) : string option=
 let reset () =
   quantityChecked <- false
 
+let beverage = {Beverage = Orange; ExtraHot = true; Sugar = 2; Stick = true; MoneyInserted = 0.9; ListPrice = 0.5}
+
 let happyPath order =
-  ok {Beverage = Orange; ExtraHot = true; Sugar = 2; Stick = true; MoneyInserted = 0.9; ListPrice = 0.5}
-
-
-//[<Theory>]
-//[<InlineData("C:1:0.9", Chocolate, 0.6)>]
-//let ``I should make a drink if I have enough money`` (order: string) (bType: BeverageType) (sugar: int) (stick: bool) (price: float) =
-//  let getPrice beverageType =
-//    beverageType |> should equal bType
-//    price
-//
-//  let drink = makeBeverage' getPrice order |> extract
-//
-//  drink.Beverage |> should equal bType
-//  drink.Sugar |> should equal sugar
-//  drink.Stick |> should equal stick
+  ok beverage
 
 
 [<Fact>]
@@ -57,7 +50,7 @@ let ``It can make beverage if I'm on the happy path`` () =
   drink.ListPrice |> should equal 0.5
 
 [<Fact>]
-let ``Cannot make a beverage if I don't have enough money`` () =
+let ``Cannot make a beverage if something goes wrong`` () =
   reset()
 
   let order = "pippo"
@@ -76,4 +69,54 @@ let ``Cannot make a beverage if I don't have enough money`` () =
   message |> should equal "0.3 Euros missing"  
 
 
+
+[<Fact>]
+
+let ``Cannot make an hot Orange Juice`` () =
+  reset ()
+
+  beverage
+  |> ``check that beverage makes sense``
+  |> extractError
+  |> should equal "Cannot make an hot Orange Juice"
+
+
+[<Fact>]
+let ``Will put stick if beverage has sugar`` =
+  let beverageWithNoStick = {beverage with Stick=false}
+  let beverageWithStick = {beverage with Stick = true}
+
+  let res = putStick beverageWithNoStick
+    
+  res.Stick |> should be True
+  
+  res |> should equal beverageWithStick
+  
+
+[<Fact>]
+let ``Can check enough money`` () =
+  reset ()
+  let priceOf beverage =
+    beverage |> should equal Orange
+    0.7
+
+  let bev = {beverage with MoneyInserted = 0.8; ListPrice = 0.0}
+  let res = checkMoney priceOf bev |> extract
+
+  res.ListPrice |> should equal 0.7
+  res.MoneyInserted |> should equal 0.8
+
+[<Fact>]
+let ``Can check not enough money`` () =
+  reset ()
+  let priceOf beverage =
+    beverage |> should equal Orange
+    0.7
+
+  let bev = {beverage with MoneyInserted = 0.4; ListPrice = 0.0}
+  checkMoney priceOf bev 
+  |> extractError
+  |> should equal "0.3 Euros missing"
+
+  
 
