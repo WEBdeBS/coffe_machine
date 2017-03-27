@@ -62,7 +62,7 @@ let ``It should be able to make any Beverage`` () =
   drink.MoneyInserted |> should equal 0.2
 
 [<Fact>]
-let ``It should not make an unknown drink``() =
+let ``It should not make an unknown drink and display the error message``() =
   reset()
   let noDrinkMaker order =
     made <- true
@@ -78,6 +78,7 @@ let ``It should not make an unknown drink``() =
 
   made |> should be True
   saved |> should be False
+  displayed |> should be True
 
 [<Fact>]
 let ``It should display messages on the interface`` () =
