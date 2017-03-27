@@ -28,7 +28,12 @@ let quantityChecker (drink: BeverageType) : string option=
 let reset () =
   quantityChecked <- false
 
-let beverage = {Beverage = Orange; ExtraHot = true; Sugar = 2; Stick = true; MoneyInserted = 0.9; ListPrice = 0.5}
+let beverage = {Beverage = Orange;
+                ExtraHot = true;
+                Sugar = 2;
+                Stick = true;
+                MoneyInserted = 0.9;
+                ListPrice = 0.5}
 
 let happyPath order =
   ok beverage
@@ -38,7 +43,7 @@ let happyPath order =
 let ``It can make beverage if I'm on the happy path`` () =
 
   reset ()
-  
+
   let order = "pippo"
   let drink = makeBeverage' happyPath order |> extract
 
@@ -66,7 +71,7 @@ let ``Cannot make a beverage if something goes wrong`` () =
     | Bad(m) -> m.[0]
     | _ -> failwith "Error"
 
-  message |> should equal "0.3 Euros missing"  
+  message |> should equal "0.3 Euros missing"
 
 
 
@@ -87,11 +92,11 @@ let ``Will put stick if beverage has sugar`` =
   let beverageWithStick = {beverage with Stick = true}
 
   let res = putStick beverageWithNoStick
-    
+
   res.Stick |> should be True
-  
+
   res |> should equal beverageWithStick
-  
+
 
 [<Fact>]
 let ``Can check enough money`` () =
@@ -114,9 +119,6 @@ let ``Can check not enough money`` () =
     0.7
 
   let bev = {beverage with MoneyInserted = 0.4; ListPrice = 0.0}
-  checkMoney priceOf bev 
+  checkMoney priceOf bev
   |> extractError
   |> should equal "0.3 Euros missing"
-
-  
-

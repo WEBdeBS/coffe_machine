@@ -13,7 +13,7 @@ let (|OrderStr|MessageStr|OtherStr|) (input:string) =
   else OtherStr
 
 let showMessage display message =
-  let pattern  = "^M:(.*)$"
+  let pattern  = messagePattern
   let matches = Regex.Match(message, pattern)
   display matches.Groups.[1].Value
 
