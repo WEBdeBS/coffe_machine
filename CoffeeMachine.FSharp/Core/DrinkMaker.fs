@@ -8,20 +8,20 @@ open CoffeeMachine.PriceList
 open System.Text.RegularExpressions
 open System
 open Chessie.ErrorHandling
-      
+
 
 //Not in chessie?? why?
-let switch f x = 
+let switch f x =
     f x |> ok
 
 let makeBeverage orderStr =
   let railway order =
     order
-    |> parseOrder    
+    |> parseOrder
     >>= switch putStick
-    >>= checkMoney priceList
+    >>= checkMoney priceOf
     >>=  checkQuantity (fun b -> false) (ignore)
     >>= ``check that beverage makes sense``
-    
+
   orderStr
   |> makeBeverage' railway
