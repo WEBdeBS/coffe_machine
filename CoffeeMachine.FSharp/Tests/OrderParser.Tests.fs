@@ -34,8 +34,6 @@ let extractOk =
 [<InlineData("H:2:0.9", "Chocolate", 2, 0.9,false)>]
 [<InlineData("Hh:2:0.9", "Chocolate", 2,0.9,true)>]
 [<InlineData("O:2:0.9", "Orange", 2, 0.9,false)>]
-
-
 let ``I should be able to parse an order`` (order: string) (bType: string) (sugar: int) (moneyInserted: float) (extraHot: bool) =
 
 
