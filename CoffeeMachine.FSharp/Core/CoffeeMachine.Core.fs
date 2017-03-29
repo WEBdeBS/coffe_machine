@@ -8,13 +8,10 @@ open System.Linq
 open Chessie.ErrorHandling
 
 let private (|OrderStr|MessageStr|OtherStr|) input =
-  if Regex.IsMatch(input, orderPattern) then OrderStr
-  elif Regex.IsMatch(input, messagePattern) then MessageStr
-  else OtherStr
-
-let showMessage display message =
-  let matches = Regex.Match(message, messagePattern)
-  display matches.Groups.[1].Value
+  if Regex.IsMatch(input, orderPattern) then OrderStr (input)
+  elif Regex.IsMatch(input, messagePattern)
+    then MessageStr (Regex.Match(input, messagePattern).Groups.[1].Value)
+  else OtherStr(input)
 
 let display message =
   printfn "%s" message
@@ -31,13 +28,12 @@ let printReport aTuple =
 let make''' drinkRepository display beverageMaker orderStr =
   orderStr
   |> function
-  | MessageStr -> showMessage display orderStr
-                  None
-  | OtherStr -> orderStr
-                |> sprintf "Invalid Order: %s"
-                |> display
-                None
-  | OrderStr -> orderStr
+  | MessageStr m -> display m
+                    None
+  | OtherStr o-> sprintf "Invalid Order: %s" o
+                 |> display
+                 None
+  | OrderStr o-> o
                 |> beverageMaker
                 |> function
                 | Bad message -> display message.[0]
