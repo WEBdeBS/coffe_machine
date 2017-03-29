@@ -1,6 +1,5 @@
 language: fsharp
 script:    # the following commands are just examples, use whatever your build process requires
-  - mono /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/.paket/paket.bootstrapper.exe
+  - /usr/bin/mono /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/.paket/paket.bootstrapper.exe
   - mono /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/.paket/paket.exe restore
   - mono /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/packages/FAKE/tools/FAKE.exe $@ --fsiargs -d:MONO /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/build.fsx
-  - CoffeeMachine.FSharp && ./build.sh Test
