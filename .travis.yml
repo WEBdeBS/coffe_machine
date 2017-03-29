@@ -1,7 +1,4 @@
-language: fsharp
-install:
-  - apt-get -y install mono-complete
-  - apt-get -y install fsharp
+language: csharp
 script:    # the following commands are just examples, use whatever your build process requires
   - mono /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/.paket/paket.bootstrapper.exe
   - mono /home/travis/build/WEBdeBS/coffe_machine/CoffeeMachine.FSharp/.paket/paket.exe restore
