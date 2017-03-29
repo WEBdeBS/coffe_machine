@@ -1,8 +1,6 @@
 language: fsharp
 script:    # the following commands are just examples, use whatever your build process requires
+  - pwd
+  - which mono
   - cd CoffeeMachine.FSharp && ./build.sh Build
   - CoffeeMachine.FSharp && ./build.sh Test
-
-matrix:
-  - include:
-    -mono: latest
