@@ -105,7 +105,7 @@ let ``Can check enough money`` () =
     0.7
 
   let bev = {beverage with MoneyInserted = 0.8; ListPrice = 0.0}
-  let res = checkMoney priceOf bev |> extract
+  let res = checkMoneyAndSetListPrice priceOf bev |> extract
 
   res.ListPrice |> should equal 0.7
   res.MoneyInserted |> should equal 0.8
@@ -118,6 +118,6 @@ let ``Can check not enough money`` () =
     0.7
 
   let bev = {beverage with MoneyInserted = 0.4; ListPrice = 0.0}
-  checkMoney priceOf bev
+  checkMoneyAndSetListPrice priceOf bev
   |> extractError
   |> should equal "0.3 Euros missing"
