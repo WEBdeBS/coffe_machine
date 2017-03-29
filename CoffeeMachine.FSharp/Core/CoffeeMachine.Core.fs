@@ -7,7 +7,7 @@ open CoffeeMachine.DrinkRepository.Data
 open System.Linq
 open Chessie.ErrorHandling
 
-let (|OrderStr|MessageStr|OtherStr|) (input:string) =
+let (|OrderStr|MessageStr|OtherStr|) input =
   if Regex.IsMatch(input, orderPattern) then OrderStr
   elif Regex.IsMatch(input, messagePattern) then MessageStr
   else OtherStr
@@ -17,7 +17,7 @@ let showMessage display message =
   display matches.Groups.[1].Value
 
 let display message =
-  printfn "%s" message
+  printfn "%s" message  
 
 let printReport' display reportLine =
   let d, c, t = reportLine
