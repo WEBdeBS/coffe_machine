@@ -1,4 +1,5 @@
 module internal CoffeeMachine.Core
+
 open System
 open System.Text.RegularExpressions
 open CoffeeMachine.Maker
@@ -7,11 +8,7 @@ open CoffeeMachine.DrinkRepository.Data
 open System.Linq
 open Chessie.ErrorHandling
 
-let private (|OrderStr|MessageStr|OtherStr|) input =
-  if Regex.IsMatch(input, orderPattern) then OrderStr (input)
-  elif Regex.IsMatch(input, messagePattern)
-    then MessageStr (Regex.Match(input, messagePattern).Groups.[1].Value)
-  else OtherStr(input)
+
 
 let display message =
   printfn "%s" message
@@ -25,7 +22,14 @@ let printReport' display reportLine =
 let printReport aTuple =
     printReport' display aTuple
 
+let private (|OrderStr|MessageStr|OtherStr|) input =
+    if Regex.IsMatch(input, orderPattern) then OrderStr (input)
+    elif Regex.IsMatch(input, messagePattern)
+      then MessageStr (Regex.Match(input, messagePattern).Groups.[1].Value)
+    else OtherStr(input)
+
 let make''' drinkRepository display beverageMaker orderStr =
+
   orderStr
   |> function
   | MessageStr m -> display m
