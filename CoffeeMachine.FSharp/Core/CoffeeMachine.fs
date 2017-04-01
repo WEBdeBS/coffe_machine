@@ -7,9 +7,6 @@ open CoffeeMachine.DrinkRepository.Main
 
 let make orderStr=
   make''' drinkRepository display makeBeverage orderStr
-
-let printReceipt =
-  printReceipt'' drinkRepository display
-
+  
 let usage =
   printfn "Usage is CoffeeMachine report|<order>"

@@ -24,7 +24,3 @@ type Beverage = {
     MoneyInserted: float
     ListPrice: float
 }
-
-type Drink =
-  | Message of string
-  | Drink of Beverage

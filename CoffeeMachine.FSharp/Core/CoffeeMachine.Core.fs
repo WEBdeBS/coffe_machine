@@ -56,8 +56,7 @@ let make''' drinkRepository display beverageMaker orderStr =
   |> function
   | MessageStr m -> display m
                     None
-  | OtherStr o-> sprintf "Invalid Order: %s" o
-                 |> display
+  | OtherStr o-> printf "\nInvalid Order: %s\n" o
                  None
   | ReportStr r -> printReceipt'' drinkRepository display
                    None
