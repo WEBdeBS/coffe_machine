@@ -14,20 +14,18 @@ let parseBeverage beverage =
 
 let parseSugar sugar =
     if String.IsNullOrEmpty sugar
-    then 0
+      then 0
     else System.Int32.Parse sugar
 
 let parseMoney money =
   if String.IsNullOrEmpty money
-  then 0.0
+    then 0.0
   else Double.Parse money
 
-let parseSpoons sugar =
-  sugar > 0
 
 let parseExtraHot h : bool =
   if String.IsNullOrEmpty h
-  then false
+    then false
   else h.EndsWith ("h")
 
 let parseOrderString order =

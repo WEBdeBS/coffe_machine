@@ -8,11 +8,8 @@ let main argv =
     then printfn "Usage is CoffeeMachine report|<order>"
          -1
     else argv.[0]
+         |> make
          |> function
-         | "report" -> printReceipt
-         | _  -> argv.[0]
-                |> make
-                |> function
-                | Some beverage -> printfn "Here's your drink:\n\n %A\n" beverage
-                | None -> printfn "\nCouldn't make any drink. Look at the display"
+         | Some beverage -> printfn "Here's your drink:\n\n %A\n" beverage
+         | None -> printfn "\nCouldn't make any drink. Look at the display"
          0

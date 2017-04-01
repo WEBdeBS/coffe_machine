@@ -20,7 +20,7 @@ Target "Build" (fun _ ->
       [Attribute.InternalsVisibleTo "Tests" ]
     !! "/**/*.fsproj"
     |> MSBuildDebug buildDir "Build"
-    |> Log "AppBuild-Output: "
+    |> Log "AppBuild-Output:"
 )
 
 Target "Test" (fun _ ->

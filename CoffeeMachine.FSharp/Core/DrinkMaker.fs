@@ -5,7 +5,6 @@ open DrinkMaker.OrderParser.Main
 open QuantityChecker
 open DrinkMaker.QuantityChecker.Core
 open CoffeeMachine.PriceList
-open System.Text.RegularExpressions
 open System
 open Chessie.ErrorHandling
 
