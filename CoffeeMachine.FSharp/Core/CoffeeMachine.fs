@@ -10,4 +10,6 @@ let make orderStr=
 
 let printReceipt =
   printReceipt'' drinkRepository display
- 
+
+let usage =
+  printfn "Usage is CoffeeMachine report|<order>"
