@@ -31,9 +31,9 @@ let reset () =
 let beverage = {Beverage = Orange;
                 ExtraHot = true;
                 Sugar = 2;
-                Stick = true;
+                Stick = Some(true);
                 MoneyInserted = 0.9;
-                ListPrice = 0.5}
+                ListPrice = Some(0.5)}
 
 let happyPath order =
   ok beverage
@@ -42,17 +42,17 @@ let happyPath order =
 [<Fact>]
 let ``It can make beverage if I'm on the happy path`` () =
 
-  reset ()
+  // reset ()
 
   let order = "pippo"
   let drink = makeBeverage' happyPath order |> extract
 
   drink.Beverage |> should equal Orange
   drink.Sugar |> should equal 2
-  drink.Stick |> should be True
+  drink.Stick |> should equal (Some(true))
   drink.ExtraHot |> should be True
   drink.MoneyInserted |> should equal 0.9
-  drink.ListPrice |> should equal 0.5
+  drink.ListPrice |> should equal (Some(0.5))
 
 [<Fact>]
 let ``Cannot make a beverage if something goes wrong`` () =
@@ -87,12 +87,12 @@ let ``Cannot make an hot Orange Juice`` () =
 
 [<Fact>]
 let ``Will put stick if beverage has sugar`` =
-  let beverageWithNoStick = {beverage with Stick=false}
-  let beverageWithStick = {beverage with Stick = true}
+  let beverageWithNoStick = {beverage with Stick= Some(false)}
+  let beverageWithStick = {beverage with Stick = Some(true)}
 
   let res = putStick beverageWithNoStick
 
-  res.Stick |> should be True
+  res.Stick |> should equal (Some(true))
 
   res |> should equal beverageWithStick
 
@@ -100,14 +100,17 @@ let ``Will put stick if beverage has sugar`` =
 [<Fact>]
 let ``Can check enough money`` () =
   reset ()
+
   let priceOf beverage =
     beverage |> should equal Orange
     0.7
 
-  let bev = {beverage with MoneyInserted = 0.8; ListPrice = 0.0}
+  let bev = {beverage with MoneyInserted = 0.8; ListPrice = Some(0.0)}
   let res = checkMoneyAndSetListPrice priceOf bev |> extract
 
-  res.ListPrice |> should equal 0.7
+  true |> should be True
+
+  res.ListPrice |> should equal (Some(0.7))
   res.MoneyInserted |> should equal 0.8
 
 [<Fact>]
@@ -117,7 +120,7 @@ let ``Can check not enough money`` () =
     beverage |> should equal Orange
     0.7
 
-  let bev = {beverage with MoneyInserted = 0.4; ListPrice = 0.0}
+  let bev = {beverage with MoneyInserted = 0.4; ListPrice = Some(0.0)}
   checkMoneyAndSetListPrice priceOf bev
   |> extractError
   |> should equal "0.3 Euros missing"

@@ -10,7 +10,7 @@ let checkMoneyAndSetListPrice priceList beverage =
   let delta = priceList beverage.Beverage - beverage.MoneyInserted
   if delta > 0.0
     then fail (sprintf "%.1f Euros missing" delta)
-  else ok {beverage with ListPrice = priceList beverage.Beverage}
+  else ok {beverage with ListPrice = priceList beverage.Beverage |> Some}
 
 let ``check that beverage makes sense`` beverage =
   if beverage.Beverage = Orange && beverage.ExtraHot
@@ -18,7 +18,7 @@ let ``check that beverage makes sense`` beverage =
   else ok beverage
 
 let putStick beverage =
-   {beverage with Stick = beverage.Sugar > 0}
+   {beverage with Stick = beverage.Sugar > 0 |> Some}
 
 let makeBeverage' railway orderStr =
   orderStr

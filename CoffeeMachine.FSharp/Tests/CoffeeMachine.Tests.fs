@@ -40,7 +40,7 @@ let fakeDisplay message =
 let mutable made = false
 let fakeBeverageMaker order =
   made <- true
-  ok {Beverage = Coffee; ExtraHot = true; MoneyInserted = 0.2; Stick = true; Sugar = 1; ListPrice = 0.7}
+  ok {Beverage = Coffee; ExtraHot = true; MoneyInserted = 0.2; Stick = true |> Some; Sugar = 1; ListPrice = Some(0.7)}
 
 
 let reset () =
@@ -112,7 +112,7 @@ let ``Should catch invalid order`` () =
     | _ -> failwith "This is not good"
 
   displayed |> should be False
-  
+
   saved |> should be False
   made |> should be False
 

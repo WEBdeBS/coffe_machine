@@ -20,7 +20,7 @@ type Beverage = {
     Beverage: BeverageType
     ExtraHot: bool
     Sugar: int
-    Stick: bool
+    Stick: bool option
     MoneyInserted: float
-    ListPrice: float
+    ListPrice: float option
 }
