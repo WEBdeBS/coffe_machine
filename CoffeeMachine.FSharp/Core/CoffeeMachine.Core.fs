@@ -1,4 +1,5 @@
 module internal CoffeeMachine.Core
+
 open System
 open System.Text.RegularExpressions
 open CoffeeMachine.Maker
