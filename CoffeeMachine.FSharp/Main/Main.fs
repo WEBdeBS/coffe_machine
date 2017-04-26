@@ -1,18 +1,14 @@
 module Main
 
 open CoffeeMachine.Main
+open DrinkMaker.Data
 
 [<EntryPoint>]
 let main argv =
-    if Array.length argv <> 1
-    then printfn "Usage is CoffeeMachine report|<order>"
-         -1
-    else argv.[0]
+    if usage argv
+    then argv.[0]
+         |> make
          |> function
-         | "report" -> printReceipt
-         | _  -> argv.[0]
-                |> make
-                |> function
-                | Some beverage -> printfn "Here's your drink:\n\n %A\n" beverage
-                | None -> printfn "\nCouldn't make any drink. Look at the display"
-         0
+         | Some beverage -> printfn "Here's your drink:\n\n %A\n\n" beverage
+         | None -> ()
+    0

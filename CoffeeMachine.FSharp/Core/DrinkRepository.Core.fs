@@ -14,7 +14,13 @@ let db'' (connectionString: string) (dbName: string) =
 let save' (db: IMongoDatabase) (drink: Beverage) =
   let id = BsonObjectId(ObjectId.GenerateNewId())
   let collection = db.GetCollection<BeverageReportDb>("drinks")
-  let record = {Id = id; Beverage = drink.Beverage; Price = drink.MoneyInserted}
+  let record = {
+    Id = id;
+    Beverage = drink.Beverage;
+    Price = match drink.ListPrice with
+            | Some price -> price
+            | _  -> failwith "Trying to save an incomplete record!"
+  }
   collection.InsertOne(record)
   drink
 

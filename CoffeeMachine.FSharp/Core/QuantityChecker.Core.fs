@@ -15,5 +15,4 @@ let checkQuantity isEmpty notifyMissingDrink beverage =
   match isEmpty beverage with
   | true -> notifyMissingDrink beverage
             sprintf "%A is empty. Vendor has been notified" beverage.Beverage |> fail
-  | _    -> ok beverage
-
+  | false -> ok beverage

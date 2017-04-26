@@ -11,9 +11,9 @@ let parseOrder orderStr  =
       Beverage = parseBeverage beverageType
       ExtraHot = parseExtraHot extraHot
       Sugar = parseSugar sugar
-      Stick = false
+      Stick = None
       MoneyInserted = parseMoney moneyInserted
-      ListPrice = 0.0
+      ListPrice = None
     }
-    with 
+    with
       | _ -> fail ("Cannot understand order")

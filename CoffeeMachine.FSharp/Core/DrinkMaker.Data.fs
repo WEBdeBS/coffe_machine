@@ -2,6 +2,7 @@ module DrinkMaker.Data
 
 let orderPattern = "^(\w{1})(h?)\:(\d*)\:(\d+\.\d+)$"
 let messagePattern = "^M:(.*)$"
+let reportPattern = "^report$"
 
 type BeverageType =
   | InvalidOrder
@@ -19,11 +20,7 @@ type Beverage = {
     Beverage: BeverageType
     ExtraHot: bool
     Sugar: int
-    Stick: bool
+    Stick: bool option
     MoneyInserted: float
-    ListPrice: float
+    ListPrice: float option
 }
-
-type Drink =
-  | Message of string
-  | Drink of Beverage

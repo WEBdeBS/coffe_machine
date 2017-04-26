@@ -8,12 +8,6 @@ open CoffeeMachine.DrinkRepository.Data
 open System.Linq
 open Chessie.ErrorHandling
 
-let private (|OrderStr|MessageStr|OtherStr|) input =
-  if Regex.IsMatch(input, orderPattern) then OrderStr (input)
-  elif Regex.IsMatch(input, messagePattern)
-    then MessageStr (Regex.Match(input, messagePattern).Groups.[1].Value)
-  else OtherStr(input)
-
 let display message =
   printfn "%s" message
 
@@ -25,23 +19,6 @@ let printReport' display reportLine =
 
 let printReport aTuple =
     printReport' display aTuple
-
-let make''' drinkRepository display beverageMaker orderStr =
-  orderStr
-  |> function
-  | MessageStr m -> display m
-                    None
-  | OtherStr o-> sprintf "Invalid Order: %s" o
-                 |> display
-                 None
-  | OrderStr o-> o
-                |> beverageMaker
-                |> function
-                | Bad message -> display message.[0]
-                                 None
-                | Ok (beverage, _) -> beverage
-                                      |> fst drinkRepository
-                                      |> Some
 
 let printTotal display reportLines =
   reportLines
@@ -64,3 +41,30 @@ let printReceipt'' repository display =
   }
   |> Seq.filter (fun r -> printReport' display r)
   |> printTotal display
+
+
+let private (|OrderStr|MessageStr|ReportStr|OtherStr|) input =
+    if Regex.IsMatch(input, orderPattern) then OrderStr (input)
+    elif Regex.IsMatch(input, messagePattern)
+      then MessageStr (Regex.Match(input, messagePattern).Groups.[1].Value)
+    elif Regex.IsMatch(input, reportPattern) then ReportStr(input)
+    else OtherStr(input)
+
+let make''' drinkRepository display beverageMaker orderStr =
+
+  orderStr
+  |> function
+  | MessageStr m -> display m
+                    None
+  | OtherStr o-> printf "\nInvalid Order: %s\n\n" o
+                 None
+  | ReportStr r -> printReceipt'' drinkRepository display
+                   None
+  | OrderStr o-> o
+                |> beverageMaker
+                |> function
+                | Bad message -> display message.[0]
+                                 None
+                | Ok (beverage, _) -> beverage
+                                      |> fst drinkRepository
+                                      |> Some

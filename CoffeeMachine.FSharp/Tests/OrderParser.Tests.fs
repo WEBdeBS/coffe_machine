@@ -42,13 +42,12 @@ let ``I should be able to parse an order`` (order: string) (bType: string) (suga
         Beverage = fromString<BeverageType> bType |> extract
         ExtraHot = extraHot
         MoneyInserted = moneyInserted
-        ListPrice = 0.0
+        ListPrice = None
         Sugar = sugar
-        Stick = false
+        Stick = None
     }
 
     order
     |> parseOrder
     |> extractOk
     |> should equal bev
-    

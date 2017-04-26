@@ -4,10 +4,13 @@ open DrinkMaker.Data
 open CoffeeMachine.Core
 open CoffeeMachine.Maker
 open CoffeeMachine.DrinkRepository.Main
+open System
 
 let make orderStr=
   make''' drinkRepository display makeBeverage orderStr
 
-let printReceipt =
-  printReceipt'' drinkRepository display
- 
+let usage args =
+  if Array.length args <> 1
+    then printfn "Usage is CoffeeMachine report|<order>"
+         false
+    else true
