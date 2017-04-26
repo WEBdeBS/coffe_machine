@@ -51,6 +51,7 @@ let private (|OrderStr|MessageStr|ReportStr|OtherStr|) input =
     else OtherStr(input)
 
 let displayMessage' display order = 
+
   order
   |> function
   | MessageStr m -> display m
@@ -82,20 +83,9 @@ let takeOrder'' display beverageMaker order =
   | _ -> fail order
                   
 
-
-let make''' drinkRepository display beverageMaker =
-  
-  function
-  | MessageStr m -> display m
-                    None
-  | OtherStr o-> printf "\nInvalid Order: %s\n\n" o
-                 None
-  | ReportStr r -> printReceipt'' drinkRepository display
-                   None
-  | OrderStr o-> o
-                |> beverageMaker
-                |> function
-                | Bad message -> display message.[0]
-                                 None
-                | Ok (beverage, _) -> beverage                                    
-                                      |> Some
+let make' railway order=
+  order
+  |> railway
+  |> function
+  | Ok (beverage, _) -> Some beverage
+  | Bad message -> None

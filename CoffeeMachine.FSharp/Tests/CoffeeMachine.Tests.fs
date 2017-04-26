@@ -48,77 +48,23 @@ let reset () =
   displayed <- false
   saved <- false
 
-[<Fact>]
-let ``It should be able to make any Beverage with a matching order :-)`` () =
-  reset()
-  let fakeMake = make''' fakeRepository fakeDisplay fakeBeverageMaker
-  let drink = "Z:1:1.0" |> fakeMake |> extract
-
-  made |> should be True
-  saved |> should be False
-  drink.Beverage |> should equal Coffee
-  drink.Sugar |> should equal 1
-  drink.ExtraHot |> should be True
-  drink.MoneyInserted |> should equal 0.2
 
 [<Fact>]
-let ``It should not make an unknown drink and display the error message``() =
-  reset()
-  let noDrinkMaker order =
-    made <- true
-    fail ""
+let ``The coffee machine can make a drink``() =
+  let mutable called = false
+  let res = ok "Pippo"
+  let order = "pluto"
 
-  let make = make''' fakeRepository fakeDisplay noDrinkMaker
+  let railway order = 
+    order |> should equal "pluto"
+    called <- true
+    res
 
-  "pippo"
-  |> make
+  make' railway order 
   |> function
-  | None -> ()
-  | _ -> failwith "I have a drink!!"
+  | Some m -> m |> should equal "Pippo"
+  |_ -> failwith "What's happening?"
 
-  made |> should be False
-  saved |> should be False
-  displayed |> should be False
-
-[<Fact>]
-let ``It should display messages on the interface`` () =
-  reset ()
-  let make = make''' fakeRepository fakeDisplay fakeBeverageMaker
-
-  "M:message-content"
-  |> make
-  |> function
-  | None -> ()
-  | _ -> failwith "I have a drink!!"
+  called |> should be True
 
 
-  messageDisplayed |> should equal "message-content"
-  displayed |> should be True
-  saved |> should be False
-  made |> should be False
-
-[<Fact>]
-let ``Should catch invalid order`` () =
-  reset ()
-
-  let fakeMaker order =
-    made <- true
-    fail "should not be here"
-
-  let drink =
-    make''' fakeRepository fakeDisplay fakeMaker "pluto"
-    |> function
-    | None -> ()
-    | _ -> failwith "This is not good"
-
-  displayed |> should be False
-
-  saved |> should be False
-  made |> should be False
-
-[<Fact>]
-let ``I should be able to print a receipt``() =
-  reset()
-  printReceipt'' fakeRepository fakeDisplay
-  loaded |> should be True
-  displayed |> should be True

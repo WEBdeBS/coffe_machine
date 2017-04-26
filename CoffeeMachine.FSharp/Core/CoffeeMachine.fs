@@ -7,21 +7,19 @@ open CoffeeMachine.DrinkRepository.Main
 open System
 open Chessie.ErrorHandling
 
-let make =
-  make''' drinkRepository display makeBeverage 
-
-let makeComposed  order =  
+let railway order = 
   let displayMessage = displayMessage' display
   let print = print'  drinkRepository display
   let takeOrder = takeOrder'' display makeBeverage
 
-  order
+  order 
   |> displayMessage
   >>= invalidOrder  
   >>= print
   >>= takeOrder
-   
 
+let make =  
+  make' railway
 
 let usage args =
   if Array.length args <> 1
