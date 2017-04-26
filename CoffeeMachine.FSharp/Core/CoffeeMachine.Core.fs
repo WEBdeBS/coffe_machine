@@ -50,10 +50,9 @@ let private (|OrderStr|MessageStr|ReportStr|OtherStr|) input =
     elif Regex.IsMatch(input, reportPattern) then ReportStr(input)
     else OtherStr(input)
 
-let make''' drinkRepository display beverageMaker orderStr =
-
-  orderStr
-  |> function
+let make''' drinkRepository display beverageMaker =
+  
+  function
   | MessageStr m -> display m
                     None
   | OtherStr o-> printf "\nInvalid Order: %s\n\n" o

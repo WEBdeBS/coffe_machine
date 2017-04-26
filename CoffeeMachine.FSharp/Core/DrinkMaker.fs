@@ -15,15 +15,14 @@ open DrinkRepository.Main
 let switch f x =
     f x |> ok
 
-let makeBeverage orderStr =
+let makeBeverage =
   let railway order =
     order
     |> parseOrder
     >>= switch putStick
-    >>= checkMoneyAndSetListPrice priceOf
-    >>=  checkQuantity (fun b -> false) (ignore)
+    >>= checkMoneyAndSetListPrice priceOf    
     >>= ``check that beverage makes sense``
+    >>=  checkQuantity (fun b -> false) (ignore)
     >>= switch saveIntoDb
 
-  orderStr
-  |> makeBeverage' railway
+  makeBeverage' railway
