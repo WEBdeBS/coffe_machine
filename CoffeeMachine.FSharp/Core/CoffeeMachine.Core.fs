@@ -50,16 +50,16 @@ let private (|OrderStr|MessageStr|ReportStr|OtherStr|) input =
     elif Regex.IsMatch(input, reportPattern) then ReportStr(input)
     else OtherStr(input)
 
-let displayMessage' display order = 
+let displayMessage' display order =
 
   order
   |> function
-  | MessageStr m -> display m
+  | MessageStr m -> display (sprintf "\n%s\n" m)
                     fail order
   | _ -> ok order
 
 let invalidOrder order =
-  order 
+  order
   |> function
   | OtherStr o -> printf "\nInvalid Order: %s\n\n" o
                   fail order
@@ -74,14 +74,14 @@ let print' repository display order =
 
 let takeOrder'' display beverageMaker order =
   match order with
-  | OrderStr o -> o 
+  | OrderStr o -> o
                   |> beverageMaker
                   |> function
                   | Bad message -> display message.[0]
                                    fail message.[0]
                   | Ok (beverage, _) -> ok beverage
   | _ -> fail order
-                  
+
 
 let make' railway order=
   order
