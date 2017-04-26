@@ -6,8 +6,8 @@ open CoffeeMachine.Maker
 open CoffeeMachine.DrinkRepository.Main
 open System
 
-let make orderStr=
-  make''' drinkRepository display makeBeverage orderStr
+let make =
+  make''' drinkRepository display makeBeverage 
 
 let usage args =
   if Array.length args <> 1

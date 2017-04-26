@@ -8,6 +8,7 @@ open DrinkMaker.QuantityChecker.Core
 open CoffeeMachine.PriceList
 open System
 open Chessie.ErrorHandling
+open DrinkRepository.Main
 
 
 //Not in chessie?? why?
@@ -22,6 +23,7 @@ let makeBeverage orderStr =
     >>= checkMoneyAndSetListPrice priceOf
     >>=  checkQuantity (fun b -> false) (ignore)
     >>= ``check that beverage makes sense``
+    >>= switch saveIntoDb
 
   orderStr
   |> makeBeverage' railway

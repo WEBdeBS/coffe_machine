@@ -65,6 +65,5 @@ let make''' drinkRepository display beverageMaker orderStr =
                 |> function
                 | Bad message -> display message.[0]
                                  None
-                | Ok (beverage, _) -> beverage
-                                      |> fst drinkRepository
+                | Ok (beverage, _) -> beverage                                    
                                       |> Some

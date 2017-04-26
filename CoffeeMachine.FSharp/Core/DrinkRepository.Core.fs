@@ -32,3 +32,5 @@ let loadAll' (db: IMongoDatabase) =
 
 let drinkRepository'' connectionString dbName =
   save' (db'' connectionString dbName), loadAll' (db'' connectionString dbName)
+
+

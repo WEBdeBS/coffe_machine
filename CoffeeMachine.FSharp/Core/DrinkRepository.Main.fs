@@ -15,3 +15,5 @@ NamelessInteractive.FSharp.MongoDB.SerializationProviderModule.Register()
 NamelessInteractive.FSharp.MongoDB.Conventions.ConventionsModule.Register()
 
 let drinkRepository = drinkRepository'' connectionString dbName
+
+let saveIntoDb = fst drinkRepository

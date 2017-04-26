@@ -5,6 +5,7 @@ open DrinkMaker.OrderParser
 open QuantityChecker
 open Chessie.ErrorHandling
 open System
+open CoffeeMachine.DrinkRepository.Main
 
 let checkMoneyAndSetListPrice priceList beverage =
   let delta = priceList beverage.Beverage - beverage.MoneyInserted
@@ -26,3 +27,5 @@ let makeBeverage' railway orderStr =
   |> function
   | Bad(errors) -> fail errors.[0]
   | Ok(b,_) -> ok b
+
+

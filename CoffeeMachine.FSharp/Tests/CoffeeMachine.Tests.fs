@@ -55,7 +55,7 @@ let ``It should be able to make any Beverage with a matching order :-)`` () =
   let drink = "Z:1:1.0" |> fakeMake |> extract
 
   made |> should be True
-  saved |> should be True
+  saved |> should be False
   drink.Beverage |> should equal Coffee
   drink.Sugar |> should equal 1
   drink.ExtraHot |> should be True
