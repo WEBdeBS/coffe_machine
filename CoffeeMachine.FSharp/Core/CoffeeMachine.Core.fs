@@ -17,8 +17,6 @@ let printReport' display reportLine =
   |> display
   true
 
-let printReport aTuple =
-    printReport' display aTuple
 
 let printTotal display reportLines =
   reportLines
