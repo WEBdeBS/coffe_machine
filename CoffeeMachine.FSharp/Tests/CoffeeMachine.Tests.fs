@@ -67,4 +67,22 @@ let ``The coffee machine can make a drink``() =
 
   called |> should be True
 
+[<Fact>]
+let ``The coffee machine can also not make a drink``() =
+  let mutable called = false
+  let res = fail "Pippo"
+  let order = "pluto"
+ 
+  let railway order = 
+     order |> should equal "pluto"
+     called <- true
+     res
+
+  make' railway order 
+  |> function
+  | None -> ()
+  |_ -> failwith "What's happening?"
+
+  called |> should be True
+
 
