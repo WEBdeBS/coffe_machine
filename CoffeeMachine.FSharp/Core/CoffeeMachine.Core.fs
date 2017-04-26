@@ -63,7 +63,7 @@ let invalidOrder order =
                   fail order
   | _ -> ok order
 
-let print' repository display order =
+let print'' repository display order =
   order
   |> function
   | ReportStr r -> printReceipt'' repository display

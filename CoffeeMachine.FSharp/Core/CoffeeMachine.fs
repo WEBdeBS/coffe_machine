@@ -8,15 +8,11 @@ open System
 open Chessie.ErrorHandling
 
 let railway order =
-  let displayMessage = displayMessage' display
-  let print = print'  drinkRepository display
-  let takeOrder = takeOrder'' display makeBeverage
-
   order
-  |> displayMessage
+  |> displayMessage' display
   >>= invalidOrder
-  >>= print
-  >>= takeOrder
+  >>= print'' drinkRepository display
+  >>= takeOrder'' display makeBeverage
 
 let make =
   make' railway
