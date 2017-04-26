@@ -7,18 +7,18 @@ open CoffeeMachine.DrinkRepository.Main
 open System
 open Chessie.ErrorHandling
 
-let railway order = 
+let railway order =
   let displayMessage = displayMessage' display
   let print = print'  drinkRepository display
   let takeOrder = takeOrder'' display makeBeverage
 
-  order 
+  order
   |> displayMessage
-  >>= invalidOrder  
+  >>= invalidOrder
   >>= print
   >>= takeOrder
 
-let make =  
+let make =
   make' railway
 
 let usage args =
@@ -26,3 +26,6 @@ let usage args =
     then printfn "Usage is CoffeeMachine report|<order>"
          false
     else true
+
+let printReport aTuple =
+  printReport' display aTuple
