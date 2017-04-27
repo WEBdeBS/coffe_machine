@@ -49,7 +49,6 @@ let private (|OrderStr|MessageStr|ReportStr|OtherStr|) input =
     else OtherStr(input)
 
 let displayMessage' display order =
-
   order
   |> function
   | MessageStr m -> display (sprintf "\n%s\n" m)
