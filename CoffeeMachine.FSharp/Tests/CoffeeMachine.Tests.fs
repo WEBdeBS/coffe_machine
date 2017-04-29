@@ -15,18 +15,26 @@ open Chessie.ErrorHandling
 
 [<Fact>]
 let ``The coffee machine can make a drink``() =
+  let beverage = {
+    Beverage = Tea
+    ExtraHot = true
+    Sugar = 1
+    Stick = true |> Some
+    MoneyInserted = 0.9
+    ListPrice = 0.6 |> Some
+  }
+
   let mutable called = false
-  let res = ok "Pippo"
   let order = "pluto"
 
   let railway order =
     order |> should equal "pluto"
     called <- true
-    res
+    beverage |> ok
 
   make' railway order
   |> function
-  | Some m -> m |> should equal "Pippo"
+  | Beverage b -> b |> should equal beverage
   |_ -> failwith "What's happening?"
 
   called |> should be True
@@ -44,7 +52,7 @@ let ``The coffee machine can also not make a drink``() =
 
   make' railway order
   |> function
-  | None -> ()
+  | Message m -> ()
   |_ -> failwith "What's happening?"
 
   called |> should be True

@@ -9,7 +9,7 @@ let main argv =
     then argv.[0]
         |> make
         |> function
-        | Some beverage -> printfn "Here's your drink:\n\n %A\n\n" beverage
-        | None -> ()
+        | Beverage beverage -> printfn "Here's your drink:\n\n %A\n\n" beverage
+        | Message m -> printfn "%s" m        
     else ()
     0

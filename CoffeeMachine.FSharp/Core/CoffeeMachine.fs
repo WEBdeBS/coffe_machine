@@ -9,26 +9,26 @@ open Chessie.ErrorHandling
 
 let railway order =
   order
-  |> displayMessage' display
+  |> displayMessage
   >>= invalidOrder
   >>= print'' drinkRepository display
-  >>= takeOrder'' display makeBeverage
+  >>= takeOrder'' makeBeverage
 
-let parallelRailway order =
-  trial{
-    let displayMessage = displayMessage' display order
-    let checkValid = invalidOrder order
-    let takeOrder = takeOrder'' display makeBeverage order
-    let print = print'' drinkRepository display order
-
-    let! result::_ = [displayMessage; checkValid; print] |> collect
-
-    return
-      takeOrder
-      |> function
-      | Ok (beverage, _) -> beverage
-      | Bad message -> failwith result
-  }
+//let parallelRailway order =
+//  trial{
+//    let displayMessage = displayMessage' display order
+//    let checkValid = invalidOrder order
+//    let takeOrder = takeOrder'' display makeBeverage order
+//    let print = print'' drinkRepository display order
+//
+//    let! result::_ = [displayMessage; checkValid; print] |> collect
+//
+//    return
+//      takeOrder
+//      |> function
+//      | Ok (beverage, _) -> beverage
+//      | Bad message -> failwith result
+//  }
 
 
 let make =

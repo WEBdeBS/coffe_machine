@@ -24,3 +24,8 @@ type Beverage = {
     MoneyInserted: float
     ListPrice: float option
 }
+
+
+type Drink =
+  | Beverage of Beverage
+  | Message of string
