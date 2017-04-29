@@ -10,6 +10,6 @@ let main argv =
         |> make
         |> function
         | Beverage beverage -> printfn "Here's your drink:\n\n %A\n\n" beverage
-        | Message m -> printfn "%s" m        
+        | Message m -> printfn "%s" m
     else ()
     0

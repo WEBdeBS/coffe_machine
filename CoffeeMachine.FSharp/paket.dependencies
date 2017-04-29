@@ -4,6 +4,7 @@ nuget FSharp.Core
 nuget FsUnit.xUnit
 nuget MongoDB.Driver
 nuget namelessinteractive.fsharp.mongodb
+nuget Suave
 nuget xunit.runner.console
 nuget chessie
 #github fsprojects/Chessie src/Chessie/ErrorHandling.fs
