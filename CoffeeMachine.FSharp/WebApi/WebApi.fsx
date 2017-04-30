@@ -9,12 +9,14 @@ open System
 open System.Net
 
 let ipZero = IPAddress.Parse("0.0.0.0")
+let port = System.Environment.GetEnvironmentVariable("PORT")
 
 let cfg =
         { defaultConfig with
             bindings =
-                 [ HttpBinding.create HTTP ipZero (uint16 8080)]
+                 [ HttpBinding.create HTTP ipZero (uint16 port) ]
                }
 
+//printfn "%A" (make "Hh:1:0.9")
 
 startWebServer cfg (OK "Hello World!")
