@@ -5,5 +5,16 @@ open Suave                 // always open suave
 open Suave.Successful      // for OK-result
 open Suave.Web             // for config
 open CoffeeMachine.Main
+open System
+open System.Net
 
-startWebServer defaultConfig (OK "Hello World!")
+let ipZero = IPAddress.Parse("0.0.0.0")
+
+let cfg =
+        { defaultConfig with
+            bindings =
+                 [ HttpBinding.create HTTP ipZero (uint16 8080)]
+               }
+
+
+startWebServer cfg (OK "Hello World!")
