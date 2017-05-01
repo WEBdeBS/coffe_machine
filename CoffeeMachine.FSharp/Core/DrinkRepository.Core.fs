@@ -24,7 +24,7 @@ let save' (db: IMongoDatabase) (drink: Beverage) =
   collection.InsertOne(record)
   drink
 
-let loadAll' (db: IMongoDatabase) =
+let loadAll' (db: IMongoDatabase) () =
     let collection = db.GetCollection<BeverageReportDb>("drinks")
     collection.Find(FilterDefinition.Empty).ToList()
     |> Seq.map (fun b -> {Price = b.Price; Beverage = b.Beverage})
@@ -32,5 +32,3 @@ let loadAll' (db: IMongoDatabase) =
 
 let drinkRepository'' connectionString dbName =
   save' (db'' connectionString dbName), loadAll' (db'' connectionString dbName)
-
-
