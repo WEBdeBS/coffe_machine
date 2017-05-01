@@ -16,6 +16,6 @@ let cfg =
                  [ HttpBinding.create HTTP ipZero (uint16 port) ]
                }
 
-//printfn "%A" (make "Hh:1:0.9")
+let drink = sprintf "%A" (make "Hh:1:0.9")
 
-startWebServer cfg (OK "La figa della Giacotti!!")
+startWebServer cfg (OK drink)
