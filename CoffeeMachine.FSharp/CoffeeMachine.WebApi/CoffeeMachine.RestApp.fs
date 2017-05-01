@@ -16,6 +16,15 @@ open CoffeeMachine.Main
 open DrinkMaker.Data
 
 
+type DrinkDto = {
+  Beverage: string
+  ExtraHot: bool
+  Sugar: int
+  Stick: bool
+  MoneyInserted: float
+  ListPrice: float
+}
+
 let badRequest order =
   order
   |> sprintf "order %s not valid"
@@ -48,14 +57,26 @@ let JSON v =
   >=> setCORSHeaders
 
 let report =
-  printReceipt |> JSON
+  printReceipt
 
 
 let makeDrink order =
   order
   |> make
-  |> function
-  | Beverage beverage -> beverage |> JSON
+
+let beverageToDto (b:Beverage) =
+  {
+    Beverage = b.Beverage.ToString()
+    ExtraHot = b.ExtraHot
+    Sugar = b.Sugar
+    MoneyInserted = b.MoneyInserted
+    ListPrice = if Option.isSome b.ListPrice then b.ListPrice.Value else failwith "Invalid drink!"
+    Stick = if Option.isSome b.Stick then b.Stick.Value else failwith "Invalid Drink!"
+  }
+
+let toDto drink =
+  match drink with
+  | Beverage b -> b |> beverageToDto |> JSON
   | Message m -> m |> JSON
 
 let restMachine  =
@@ -64,8 +85,8 @@ let restMachine  =
       allowCors
       GET >=> choose
         [
-          path "/report" >=> report
+          path "/report" >=> (report |> JSON)
           NOT_FOUND "Invalid route"
         ]
-      POST >=> pathScan "/order/%s" (makeDrink)
+      POST >=> pathScan "/order/%s" (makeDrink >> toDto)
     ]
