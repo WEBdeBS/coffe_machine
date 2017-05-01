@@ -47,10 +47,6 @@ let JSON v =
   >=> Writers.setMimeType "application/json; charset=utf-8"
   >=> setCORSHeaders
 
-let handleResource requestError =
-    function
-    | Some r -> r |> JSON
-    | _ -> requestError
 
 
 let makeDrink order =
@@ -58,7 +54,7 @@ let makeDrink order =
   |> make
   |> function
   | Beverage beverage -> beverage |> JSON
-  | Message m -> badRequest m |> JSON
+  | Message m -> m |> JSON
 
 let restMachine  =
   choose
