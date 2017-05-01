@@ -31,4 +31,4 @@ let loadAll' (db: IMongoDatabase) () =
     |> Seq.toArray
 
 let drinkRepository'' connectionString dbName =
-  save' (db'' connectionString dbName), loadAll' (db'' connectionString dbName)
+  save' (db'' connectionString dbName), loadAll' (db'' connectionString dbName) 

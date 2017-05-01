@@ -45,5 +45,5 @@ let usage args =
 let printReceipt () =
   let receipt = new List<string>();
   let display = fun line -> receipt.Add(line)
-  printReceipt'' drinkRepository display 
+  printReceipt'' drinkRepository display
   receipt

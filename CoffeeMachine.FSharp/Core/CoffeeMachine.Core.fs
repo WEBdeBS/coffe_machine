@@ -26,8 +26,8 @@ let printTotal display reportLines =
   |> display
 
 let printReceipt'' repository display =
-  printfn "Querying repo..."
-  let data = Queryable.AsQueryable<BeverageReport>((snd repository)())
+  let loadAll = snd repository
+  let data = Queryable.AsQueryable<BeverageReport>(loadAll())
   query {
     for line in data do
     groupBy line.Beverage into g
