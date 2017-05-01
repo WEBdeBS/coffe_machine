@@ -4,6 +4,7 @@ nuget FSharp.Core
 nuget FsUnit.xUnit
 nuget MongoDB.Driver
 nuget namelessinteractive.fsharp.mongodb
+nuget Newtonsoft.Json
 nuget Suave
 nuget xunit.runner.console
 nuget chessie
