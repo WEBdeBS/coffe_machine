@@ -12,9 +12,15 @@ open Suave.Successful
 open Newtonsoft.Json
 open Newtonsoft.Json.Serialization
 
+open FSharp.Reflection
+
 open CoffeeMachine.Main
 open DrinkMaker.Data
 
+
+let toString (x:'a) =
+    match FSharpValue.GetUnionFields(x, typeof<'a>) with
+    | case, _ -> case.Name
 
 type DrinkDto = {
   Beverage: string
@@ -66,7 +72,7 @@ let makeDrink order =
 
 let beverageToDto (b:Beverage) =
   {
-    Beverage = b.Beverage.ToString()
+    Beverage = toString b.Beverage
     ExtraHot = b.ExtraHot
     Sugar = b.Sugar
     MoneyInserted = b.MoneyInserted
