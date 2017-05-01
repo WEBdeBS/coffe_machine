@@ -16,4 +16,4 @@ NamelessInteractive.FSharp.MongoDB.Conventions.ConventionsModule.Register()
 
 let drinkRepository = drinkRepository'' connectionString dbName
 
-let saveIntoDb =  fst drinkRepository 
+let saveIntoDb =  fst drinkRepository
