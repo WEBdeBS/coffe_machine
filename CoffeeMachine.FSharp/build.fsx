@@ -21,6 +21,7 @@ Target "Build" (fun _ ->
     !! "/**/*.fsproj"
     |> MSBuildDebug buildDir "Build"
     |> Log "AppBuild-Output:"
+    DeleteFile (buildDir @@ "System.Runtime.InteropServices.RuntimeInformation.dll")
 )
 
 Target "Test" (fun _ ->
