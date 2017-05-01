@@ -62,11 +62,6 @@ let JSON v =
   >=> Writers.setMimeType "application/json; charset=utf-8"
   >=> setCORSHeaders
 
-//let report () =
-//  printfn "Printing receipt..."
-//  printReceipt ()
-//
-
 
 let makeDrink order =
   order
@@ -95,7 +90,7 @@ let restMachine  =
       allowCors
       GET >=> choose
         [
-          path "/report" >=> request (fun r -> printReceipt ()  |> JSON)
+          path "/report" >=> warbler (fun _ ->  printReceipt () |> JSON )
           NOT_FOUND "Invalid route"
         ]
       POST >=> pathScan "/order/%s" (makeDrink >> toDto)
