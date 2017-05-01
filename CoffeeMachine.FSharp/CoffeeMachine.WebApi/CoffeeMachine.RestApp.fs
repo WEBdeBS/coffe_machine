@@ -63,7 +63,8 @@ let JSON v =
   >=> setCORSHeaders
 
 let report =
-  printReceipt ()
+  printfn "Printing receipt..."
+  printReceipt ()  
 
 
 let makeDrink order =
