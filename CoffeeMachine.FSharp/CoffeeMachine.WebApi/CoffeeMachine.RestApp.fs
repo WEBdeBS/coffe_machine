@@ -95,7 +95,7 @@ let restMachine  =
       allowCors
       GET >=> choose
         [
-          path "/report" >=> request (fun r -> printReceipt () |> JSON)
+          path "/report" >=> request (fun r -> printReceipt ()  |> JSON)
           NOT_FOUND "Invalid route"
         ]
       POST >=> pathScan "/order/%s" (makeDrink >> toDto)
