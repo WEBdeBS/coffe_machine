@@ -47,6 +47,8 @@ let JSON v =
   >=> Writers.setMimeType "application/json; charset=utf-8"
   >=> setCORSHeaders
 
+let report =
+  printReceipt |> JSON
 
 
 let makeDrink order =
@@ -62,7 +64,7 @@ let restMachine  =
       allowCors
       GET >=> choose
         [
-          pathScan "/order/%s" makeDrink
+          path "/report" >=> report
           NOT_FOUND "Invalid route"
         ]
       POST >=> pathScan "/order/%s" (makeDrink)

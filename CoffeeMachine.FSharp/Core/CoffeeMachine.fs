@@ -6,6 +6,7 @@ open CoffeeMachine.Maker
 open CoffeeMachine.DrinkRepository.Main
 open System
 open Chessie.ErrorHandling
+open System.Collections.Generic
 
 let railway order =
   order
@@ -41,5 +42,8 @@ let usage args =
          false
     else true
 
-let printReport aTuple =
-  printReport' display aTuple
+let printReceipt =
+  let receipt = new List<string>();
+  let display = fun line -> receipt.Add(line)
+  printReceipt'' drinkRepository display
+  receipt
