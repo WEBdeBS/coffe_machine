@@ -57,7 +57,6 @@ let allowCors : WebPart =
 
 let JSON v =
   v
-  |> toJson
   |> OK
   >=> Writers.setMimeType "application/json; charset=utf-8"
   >=> setCORSHeaders
@@ -79,8 +78,8 @@ let beverageToDto (b:Beverage) =
 
 let toDto drink =
   match drink with
-  | Beverage b -> b |> beverageToDto |> JSON
-  | Message m -> m |> JSON
+  | Beverage b -> b |> beverageToDto |> toJson
+  | Message m -> m |> toJson
 
 
 
@@ -90,8 +89,8 @@ let restMachine  =
       allowCors
       GET >=> choose
         [
-          path "/report" >=> warbler (fun _ ->  printReceipt () |> JSON )
+          path "/report" >=> warbler (fun _ ->  toJson >> JSON  <| printReceipt())
           NOT_FOUND "Invalid route"
         ]
-      POST >=> pathScan "/order/%s" (makeDrink >> toDto)
+      POST >=> pathScan "/order/%s" (makeDrink >> toDto >> JSON)
     ]
