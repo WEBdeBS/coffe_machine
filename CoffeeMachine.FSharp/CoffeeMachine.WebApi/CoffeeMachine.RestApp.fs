@@ -62,9 +62,10 @@ let JSON v =
   >=> Writers.setMimeType "application/json; charset=utf-8"
   >=> setCORSHeaders
 
-let report () =
-  printfn "Printing receipt..."
-  printReceipt
+//let report () =
+//  printfn "Printing receipt..."
+//  printReceipt ()
+//
 
 
 let makeDrink order =
@@ -86,13 +87,15 @@ let toDto drink =
   | Beverage b -> b |> beverageToDto |> JSON
   | Message m -> m |> JSON
 
+
+
 let restMachine  =
   choose
     [
       allowCors
       GET >=> choose
         [
-          path "/report" >=> (report() |> JSON)
+          path "/report" >=> request (fun r -> printReceipt () |> JSON)
           NOT_FOUND "Invalid route"
         ]
       POST >=> pathScan "/order/%s" (makeDrink >> toDto)

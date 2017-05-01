@@ -42,7 +42,7 @@ let usage args =
          false
     else true
 
-let printReceipt =
+let printReceipt ()  =
   let receipt = new List<string>();
   let display = fun line -> receipt.Add(line)
   printReceipt'' drinkRepository display
