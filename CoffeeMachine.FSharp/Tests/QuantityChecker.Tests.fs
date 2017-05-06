@@ -4,6 +4,8 @@ open Xunit
 open FsUnit.Xunit
 open DrinkMaker.Data
 open DrinkMaker.QuantityChecker.Core
+open CoffeeMachine.PriceList
+open Chessie.ErrorHandling
 
 let mutable quantityChecked = false
 let isEmpty beverage =
@@ -52,3 +54,12 @@ let ``Can check for existing Beverage`` () =
 
   notified |> should be False
   quantityChecked |> should be True
+
+[<Fact>]
+let canCheckDrinkExistance() =
+  {Beverage = BeverageType.InvalidOrder; MoneyInserted = 1.0; Stick = Some true;
+    ExtraHot = true; Sugar = 2; ListPrice = None  }
+  |> ``Check that drink exists``
+  |> function
+  | Bad (e) -> e.[0] |> should equal "Got an invalid order"
+  | Ok(_) -> failwith "Error"
