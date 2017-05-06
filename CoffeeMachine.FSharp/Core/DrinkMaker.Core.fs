@@ -27,3 +27,15 @@ let makeBeverage' railway orderStr =
   |> function
   | Bad(errors) -> fail errors.[0]
   | Ok(b,_) -> ok b
+
+
+let dummy1 beverage =
+  beverage.Beverage = BeverageType.Tea
+
+
+let dummy2 isTea =
+  let b = {Beverage = BeverageType.Tea;
+      Stick = isTea |> Some ; Sugar = 2; ListPrice = Some 0.9;
+      ExtraHot = isTea; MoneyInserted = 1.0
+    }
+  if isTea then ok b else fail "Figa!"

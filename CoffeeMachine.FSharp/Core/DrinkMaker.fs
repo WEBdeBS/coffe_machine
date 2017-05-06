@@ -20,6 +20,7 @@ let makeBeverage =
     order
     |> parseOrder
     >>= ``Check that drink exists``
+    //>>= (dummy1 >> dummy2)
     >>= switch putStick
     >>= checkMoneyAndSetListPrice priceOf
     >>= ``check that beverage makes sense``
