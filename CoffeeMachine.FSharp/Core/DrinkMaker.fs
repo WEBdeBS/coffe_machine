@@ -19,8 +19,9 @@ let makeBeverage =
   let railway order =
     order
     |> parseOrder
+    >>= ``Check that drink exists``
     >>= switch putStick
-    >>= checkMoneyAndSetListPrice priceOf    
+    >>= checkMoneyAndSetListPrice priceOf
     >>= ``check that beverage makes sense``
     >>=  checkQuantity (fun b -> false) (ignore)
     >>= switch saveIntoDb

@@ -3,6 +3,7 @@ build/
 .fake/
 obj/
 packages/
+deploy/
 FSharp/.paket/*
 FSharp/xunit.html
 FSharp/.paket.lock

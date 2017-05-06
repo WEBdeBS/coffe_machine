@@ -62,9 +62,6 @@ let JSON v =
   >=> setCORSHeaders
 
 
-let makeDrink order =
-  order
-  |> make
 
 let beverageToDto (b:Beverage) =
   {
@@ -92,5 +89,5 @@ let restMachine  =
           path "/report" >=> warbler (fun _ ->  toJson >> JSON  <| printReceipt())
           NOT_FOUND "Invalid route"
         ]
-      POST >=> pathScan "/order/%s" (makeDrink >> toDto >> JSON)
+      POST >=> pathScan "/order/%s" (make >> toDto >> JSON)
     ]

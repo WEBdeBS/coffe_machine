@@ -27,5 +27,3 @@ let makeBeverage' railway orderStr =
   |> function
   | Bad(errors) -> fail errors.[0]
   | Ok(b,_) -> ok b
-
-

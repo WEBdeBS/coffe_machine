@@ -7,8 +7,8 @@ open Fake.Testing
 
 // Directories
 let buildDir  = "./build/"
-let testDir  = "./test/"
-
+let levelDir = "./levels/"
+let deployDir = "./deploy/"
 // Targets
 Target "Clean" (fun _ ->
     CleanDirs [buildDir]
@@ -30,9 +30,17 @@ Target "Test" (fun _ ->
 )
 
 // Build order
+Target "Deploy" (fun _ ->
+    !! (buildDir + "/**/*.*")
+    -- "*.zip"
+    |> Zip "./" (deployDir + "CoffeeMachine.zip")
+)
+
+// Build order
 "Clean"
   ==> "Build"
   ==> "Test"
+  ==> "Deploy"
 
 // start build
 RunTargetOrDefault "Test"
