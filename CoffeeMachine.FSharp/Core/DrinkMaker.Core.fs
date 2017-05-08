@@ -1,3 +1,5 @@
+
+
 module internal DrinkMaker.Core
 
 open DrinkMaker.Data
@@ -30,12 +32,9 @@ let makeBeverage' railway orderStr =
 
 
 let dummy1 beverage =
-  beverage.Beverage = BeverageType.Tea
+  beverage, beverage.Beverage = Tea
 
-
-let dummy2 isTea =
-  let b = {Beverage = BeverageType.Tea;
-      Stick = isTea |> Some ; Sugar = 2; ListPrice = Some 0.9;
-      ExtraHot = isTea; MoneyInserted = 1.0
-    }
-  if isTea then ok b else fail "Figa!"
+let dummy2 (beverage, isTea) =
+  if isTea
+  then ok beverage
+  else fail "La figa!"
