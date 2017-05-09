@@ -37,8 +37,11 @@ Target "Deploy" (fun _ ->
 )
 
 Target "Docker"(fun _ ->
+    DeleteDir "./docker/CoffeeMachine"
     Unzip "./docker" (deployDir + "CoffeeMachine.zip")
-    Rename "./docker/CoffeeMachine" "./docker/build" 
+    Rename "./docker/CoffeeMachine" "./docker/build"
+    DeleteFile ("./docker/CoffeeMachine/CoffeeMachine.WebApi.exe.config")
+    Copy  "./docker/CoffeeMachine" ["./docker/CoffeeMachine.WebApi.exe.config"]
   )
 
 // Build order
