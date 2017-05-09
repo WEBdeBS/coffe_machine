@@ -36,11 +36,17 @@ Target "Deploy" (fun _ ->
     |> Zip "./" (deployDir + "CoffeeMachine.zip")
 )
 
+Target "Docker"(fun _ ->
+    Unzip "./docker" (deployDir + "CoffeeMachine.zip")
+    Rename "./docker/CoffeeMachine" "./docker/build" 
+  )
+
 // Build order
 "Clean"
   ==> "Build"
   ==> "Test"
   ==> "Deploy"
+  ==> "Docker"
 
 // start build
 RunTargetOrDefault "Test"

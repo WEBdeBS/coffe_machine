@@ -5,7 +5,7 @@ FROM fsharp
 WORKDIR /CoffeeMachine
 
 # Copy the current directory contents into the container at /app
-ADD CoffeeMachine .
+ADD deploy /CoffeeMachine
 
 # Make port 80 available to the world outside this container
 EXPOSE 8081
@@ -14,7 +14,7 @@ EXPOSE 8081
 ENV PORT 8081
 
 # Run app.py when the container launches
-#CMD ["./build.sh"]
-CMD ["mono", "CoffeeMachine.WebApi.exe"]
+CMD ["unzip" "deploy/Coffeemachine.zip"]
+CMD ["mono", "build/CoffeeMachine.WebApi.exe"]
 
 

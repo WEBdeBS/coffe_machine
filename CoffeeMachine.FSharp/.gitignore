@@ -7,3 +7,5 @@ deploy/
 FSharp/.paket/*
 FSharp/xunit.html
 FSharp/.paket.lock
+docker/CoffeeMachine
+*/*.swp
