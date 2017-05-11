@@ -9,6 +9,11 @@ open Fake.Testing
 let buildDir  = "./build/"
 let levelDir = "./levels/"
 let deployDir = "./deploy/"
+let dockerDir = "./docker/"
+let dockerDeploy = "CoffeeMachine"
+let zipFile = "CoffeeMachine.zip"
+let configFile = "CoffeeMachine.WebApi.exe.config"
+
 // Targets
 Target "Clean" (fun _ ->
     CleanDirs [buildDir]
@@ -33,15 +38,15 @@ Target "Test" (fun _ ->
 Target "Deploy" (fun _ ->
     !! (buildDir + "/**/*.*")
     -- "*.zip"
-    |> Zip "./" (deployDir + "CoffeeMachine.zip")
+    |> Zip "./" (deployDir + zipFile)
 )
 
 Target "Docker"(fun _ ->
-    DeleteDir "./docker/CoffeeMachine"
-    Unzip "./docker" (deployDir + "CoffeeMachine.zip")
-    Rename "./docker/CoffeeMachine" "./docker/build"
-    DeleteFile ("./docker/CoffeeMachine/CoffeeMachine.WebApi.exe.config")
-    Copy  "./docker/CoffeeMachine" ["./docker/CoffeeMachine.WebApi.exe.config"]
+    DeleteDir (dockerDir + dockerDeploy)
+    Unzip dockerDir (deployDir + zipFile)
+    Rename (dockerDir + dockerDeploy) (dockerDir + buildDir)
+    DeleteFile (dockerDir + dockerDeploy + configFile)
+    Copy  (dockerDir + dockerDeploy) [(dockerDir + configFile)]
   )
 
 // Build order

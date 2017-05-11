@@ -1,0 +1,66 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Coffees",
+		"_postman_id": "d2d33427-9f5d-950f-9298-e56a9f9f455c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8081/order/Ch::0.9",
+			"request": {
+				"url": "http://localhost:8081/order/Ch::0.9",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/order/T::0.9",
+			"request": {
+				"url": "http://localhost:8081/order/O::0.9",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/order/O::0.9",
+			"request": {
+				"url": "http://localhost:8081/order/O::0.9",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/order/Hh:1:0.9",
+			"request": {
+				"url": "http://localhost:8081/order/Th:1:0.9",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/order/Th:1:0.9",
+			"request": {
+				"url": "http://localhost:8081/order/Th:1:0.9",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
