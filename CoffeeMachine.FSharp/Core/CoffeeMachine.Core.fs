@@ -22,7 +22,7 @@ let printTotal display reportLines =
   reportLines
   |> Seq.map (fun (d,c,t) -> t)
   |> Seq.reduce (+)
-  |> sprintf "\nGrand total: %.2f\n"
+  |> sprintf "Grand total: %.2f"
   |> display
 
 let printReceipt'' repository display =

@@ -10,6 +10,11 @@ open System
 open Chessie.ErrorHandling
 open DrinkRepository.Main
 
+open System.Configuration
+
+
+let isEmpty = Convert.ToBoolean(ConfigurationManager.AppSettings.Item("Empty"))
+
 
 //Not in chessie?? why?
 let switch f x =
@@ -24,7 +29,7 @@ let makeBeverage =
     >>= switch putStick
     >>= checkMoneyAndSetListPrice priceOf
     >>= ``check that beverage makes sense``
-    >>=  checkQuantity (fun b -> false) (ignore)
+    >>=  checkQuantity (fun b -> isEmpty) (ignore)
     >>= switch saveIntoDb
 
   makeBeverage' railway

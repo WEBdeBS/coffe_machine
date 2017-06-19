@@ -1,6 +1,7 @@
 module CoffeeMachine.PriceList
 
 open System.Collections.Generic
+
 open DrinkMaker.Data
 open Chessie.ErrorHandling
 
