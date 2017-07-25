@@ -13,23 +13,23 @@ open DrinkRepository.Main
 open System.Configuration
 
 
-let isEmpty = Convert.ToBoolean(ConfigurationManager.AppSettings.Item("Empty"))
+let mutable private isEmpty = true
 
+let public setEmptyConfiguration empty = isEmpty <- empty
 
-//Not in chessie?? why?
-let switch f x =
-    f x |> ok
+// let isEmpty = Convert.ToBoolean(ConfigurationManager.AppSettings.Item("Empty"))
+
 
 let makeBeverage =
-  let railway order =
-    order
-    |> parseOrder
-    >>= ``Check that drink exists``
+  let railway =
+ 
+    parseOrder
+    >> bind ``Check that drink exists``
     //>>= (dummy1 >> dummy2)
-    >>= switch putStick
-    >>= checkMoneyAndSetListPrice priceOf
-    >>= ``check that beverage makes sense``
-    >>=  checkQuantity (fun b -> isEmpty) (ignore)
-    >>= switch saveIntoDb
-
+    >> lift putStick
+    >> bind (checkMoneyAndSetListPrice priceOf)
+    >> bind ``check that beverage makes sense``
+    >> bind  (checkQuantity (fun b -> isEmpty) (ignore))
+    >> lift saveIntoDb
+  
   makeBeverage' railway

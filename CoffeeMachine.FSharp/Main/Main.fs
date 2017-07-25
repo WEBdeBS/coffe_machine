@@ -1,7 +1,15 @@
 module Main
 
+open System
+open System.Configuration
 open CoffeeMachine.Main
 open DrinkMaker.Data
+
+Convert.ToBoolean(ConfigurationManager.AppSettings.Item("Empty"))
+|> CoffeeMachine.Maker.setEmptyConfiguration 
+|> ignore
+
+
 
 [<EntryPoint>]
 let main argv =
