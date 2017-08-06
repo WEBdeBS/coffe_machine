@@ -13,11 +13,7 @@ open DrinkRepository.Main
 open System.Configuration
 
 
-let mutable private isEmpty = true
-
-let public setEmptyConfiguration empty = isEmpty <- empty
-
-// let isEmpty = Convert.ToBoolean(ConfigurationManager.AppSettings.Item("Empty"))
+let isEmpty = Convert.ToBoolean(ConfigurationManager.AppSettings.Item("Empty"))
 
 
 let makeBeverage =

@@ -4,13 +4,8 @@ open System
 open System.Configuration
 open CoffeeMachine.Main
 open DrinkMaker.Data
-open FSharp.Configuration
 
-type Settings = AppSettings<"App.config">
 
-Settings.Empty
-|> CoffeeMachine.Maker.setEmptyConfiguration 
-|> ignore
 
 
 

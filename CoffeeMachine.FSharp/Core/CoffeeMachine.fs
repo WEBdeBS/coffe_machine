@@ -8,12 +8,11 @@ open System
 open Chessie.ErrorHandling
 open System.Collections.Generic
 
-let railway order =
-  order
-  |> displayMessage
-  >>= invalidOrder
-  >>= print'' drinkRepository display
-  >>= takeOrder'' makeBeverage
+let railway =  
+  displayMessage
+  >> bind invalidOrder
+  >> bind (print'' drinkRepository display)
+  >> bind (takeOrder'' makeBeverage)
 
 //let parallelRailway order =
 //  trial{
